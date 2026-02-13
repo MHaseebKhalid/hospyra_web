@@ -2,7 +2,6 @@
 
 import React from 'react'
 import { useRouter } from 'next/navigation'
-import { ArrowRight, Phone } from 'lucide-react'
 import GlobalButton from '../buttons/GlobalButton'
 
 interface ButtonConfig {
@@ -37,12 +36,12 @@ const UnstoppableCard: React.FC<UnstoppableCardProps> = ({
   return (
     <div className='bg-white py-12 px-[4%]'>
       <div 
-        className='text-center px-8 py-20 rounded-3xl'
+        className='text-center px-8 py-12 md:py-20 rounded-3xl'
         style={{ backgroundColor, color: textColor }}
       >
         <div className='space-y-2'>
             <p 
-              className='text-[76px] max-[1200px]:text-[60px] max-[1000px]:text-[48px] font-bold uppercase mx-auto'
+              className='text-[76px] max-[1200px]:text-[60px] max-[1000px]:text-[48px] max-md:text-[36px] font-bold uppercase mx-auto'
               style={headingMaxWidth ? { maxWidth: headingMaxWidth } : {}}
             >
               {heading}
@@ -63,7 +62,7 @@ const UnstoppableCard: React.FC<UnstoppableCardProps> = ({
               borderWidth={button.borderWidth}
               icon={button.icon}
               onClick={() => router.push(button.href)}
-              className="px-8 py-4"
+              className="px-8 py-4 max-sm:w-full"
             />
           ))}
         </div>
