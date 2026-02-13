@@ -1,65 +1,60 @@
-import Image from "next/image";
+import type { Metadata } from "next";
+import HomeBanner from "@/components/banners/HomeBanner";
+import MarketingAndMedia from "@/components/sections/MarketingAndMedia";
+import TrustedByRestaurants from "@/components/sections/TrustedByRestaurants";
+import TrustedPartners from "@/components/sections/TrustedPartners";
+import WhyHospyraExists from "@/components/sections/WhyHospyraExists";
+import TitleCard from "@/components/cards/TitleCard";
+import TopBorderCard from "@/components/cards/TopBorderCard";
+import { Building2, Cog, Map, Megaphone, RefreshCw, Rocket, Search } from "lucide-react";
+import MediaDrivenCard from "@/components/cards/MediaDrivenCard";
 
-export default function Home() {
+export const metadata: Metadata = {
+  title: "Hospyra - Restaurant Growth, Media & Execution Partner",
+  description: "Hospyra is the all-in-one growth, media, and execution partner for restaurants. We help restaurants increase visibility and revenue first, then support everything needed to improve, expand, and scale with confidence.",
+  keywords: "restaurant growth, restaurant marketing, restaurant media, restaurant execution, hospitality partner, restaurant expansion",
+};
+
+const Home = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div>
+      <HomeBanner />
+      <TrustedByRestaurants />
+      <WhyHospyraExists />
+      <MarketingAndMedia />
+      <TrustedPartners />
+      <div className="bg-[#fffdfb]">
+        <div className="py-12">
+          <TitleCard
+            className="px-[4%] pb-6"
+            orangeLabel="WHO HOSPYRA IS FOR"
+            title="Built for Serious Hospitality Builders"
+          />
+          <div className="flex px-[4%] overflow-x-auto hide-scrollbar gap-6 py-6">
+            <TopBorderCard className="w-90.75" title="New restaurants launching their first concept the right way" icon={<Rocket color="#F05830" />} />
+            <TopBorderCard className="w-90.75" title="Restaurants ready to reposition or modernize" icon={<RefreshCw color="#F05830" />} />
+            <TopBorderCard className="w-90.75" title="Brands preparing for expansion" icon={<Map color="#F05830" />} />
+            <TopBorderCard className="w-90.75" title="Hospitality groups building multi-location portfolios" icon={<Building2 color="#F05830" />} />
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <div className="px-[4%]">
+          <MediaDrivenCard />
         </div>
-      </main>
+        <div className="py-12">
+          <TitleCard
+            className="px-[4%] pb-6"
+            orangeLabel="HOW IT WORKS"
+            title="Simple. Structured. Effective."
+          />
+          <div className="flex md:grid grid-cols-2 lg:grid-cols-4 px-[4%] overflow-x-auto hide-scrollbar gap-6 py-6">
+            <TopBorderCard className="w-80.75 md:w-full" count={"01"} title="We understand your current position" icon={<Search color="#F05830" />} />
+            <TopBorderCard className="w-80.75 md:w-full" count={"02"} title="We build visibility and demand through media & growth" icon={<Megaphone color="#F05830" />} />
+            <TopBorderCard className="w-80.75 md:w-full" count={"03"} title="We execute everything else with the right teams" icon={<Cog color="#F05830" />} />
+            <TopBorderCard className="w-80.75 md:w-full" count={"04"} title="We stay involved as your brand grows" icon={<Rocket color="#F05830" />} />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
+export default Home;
