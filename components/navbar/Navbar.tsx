@@ -60,7 +60,7 @@ const Navbar = () => {
     <>
       <nav className="sticky top-0 z-50 bg-[#27272A] backdrop-blur-sm">
         <div className="px-[4%] flex items-center justify-between h-16 md:h-20">
-          <Link href="/" className="text-2xl md:text-3xl font-bold text-[#FF6B35] font-antonio">
+          <Link href="/" className="text-3xl font-bold text-[#FF6B35] font-antonio">
             HOSPYRA
           </Link>
 

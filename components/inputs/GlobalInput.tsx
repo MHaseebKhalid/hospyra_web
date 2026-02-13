@@ -1,0 +1,125 @@
+"use client"
+import React, { useState } from "react";
+
+type props = {
+  id?: any;
+  ref?: any;
+  value?: any;
+  type?: string;
+  width?: string;
+  title?: string;
+  className?: any;
+  height?: string;
+  bgColor?: string;
+  labelFont?: string;
+  inputLabel?: string;
+  placeholder?: string;
+  borderRadius?: string;
+  labelColor?: string;
+  validationType?: 'letters' | 'numbers';
+  inputClassName?: any;
+  error?: undefined | any;
+  validationMessage?: string;
+  validationRegex?: RegExp;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  disabled?: boolean;
+  onValidationError?: (message: string) => void;
+};
+
+const GlobalInput = ({
+  id,
+  value,
+  ref,
+  title,
+  error,
+  onChange,
+  onKeyDown,
+  onFocus,
+  disabled,
+  className,
+  placeholder,
+  validationType,
+  inputClassName,
+  onValidationError,
+  width = "100%",
+  labelFont = '400',
+  bgColor = "transparent",
+  type,
+  height = "42px",
+  labelColor = "#364153",
+  borderRadius = '10px'
+}: props) => {
+
+  const [localError, setLocalError] = useState<string | null>(null);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+    let errorMessage = '';
+
+    if (inputValue === '') {
+      setLocalError(null);
+      if (onChange) onChange(e);
+      return;
+    }
+
+    if (validationType === 'letters') {
+      if (/[^a-zA-Z\s]/.test(inputValue)) {
+        errorMessage = 'Letters only (e.g., Name).';
+      }
+    }
+
+    if (validationType === 'numbers') {
+
+      if (!/^\d*(\.\d*)?$/.test(inputValue)) {
+        errorMessage = 'Only numbers and decimals allowed.';
+      }
+
+      if ((inputValue.match(/\./g) || []).length > 1) {
+        errorMessage = 'Only one decimal point is allowed.';
+      }
+    }
+
+    if (errorMessage) {
+      setLocalError(errorMessage);
+      if (onValidationError) {
+        onValidationError(errorMessage);
+      }
+    } else {
+      setLocalError(null);
+      if (onChange) onChange(e);
+    }
+  };
+
+  return (
+    <div className={`w-full ${className}`} >
+      <label style={{ color: labelColor, fontWeight: labelFont }} className="text-[13px] mb-2">
+        {title}
+      </label>
+      <input
+        id={id}
+        type={type}
+        ref={ref}
+        value={value}
+        onKeyDown={onKeyDown}
+        onFocus={onFocus}
+        disabled={disabled}
+        placeholder={placeholder}
+        onChange={handleInputChange}
+        min={type === "number" ? 0 : undefined}
+        style={{ height: height, width: width, backgroundColor: bgColor, borderRadius: borderRadius }}
+        className={`globalinput-placeholder placeholder:text-[13px] text-[14px] text-black autofill:text-[#A6A6A6] placeholder:text-[#0A0A0A80] border focus:outline-none block placeholder:font-light border-[#D1D5DC] px-4 ${inputClassName}`}
+      />
+      {(error || localError) && (
+        <div className={`${error || localError ? "mb-1" : ""}`}>
+          <span className="text-sm text-red-500 px-1">
+            {error || localError}
+          </span>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default GlobalInput;

@@ -2,7 +2,7 @@ import React from 'react'
 import BannerCard from '@/components/cards/BannerCard'
 
 const HomeBanner = () => {
-  return (
+    return (
     <BannerCard
       backgroundImage="/assets/pngs/banner-images/home-banner-img.png"
       heading="GROW FIRST. EXPAND SMART. BUILD WHAT LASTS."
