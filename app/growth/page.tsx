@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import GrowthBanner from '@/components/banners/GrowthBanner'
+import UnstoppableCard from '@/components/cards/UnstoppableCard'
+import { ArrowRight, Phone } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: "Growth - Hospyra",
@@ -11,14 +13,30 @@ const GrowthPage = () => {
   return (
     <>
       <GrowthBanner />
-      <div className="min-h-screen bg-background">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <h1 className="text-4xl font-bold mb-8">Growth</h1>
-          <p className="text-lg text-muted-foreground">
-            Discover how HOSPYRA can help your restaurant business grow and expand.
-          </p>
-        </div>
-      </div>
+      <UnstoppableCard
+        heading={"READY TO DRIVE REAL GROWTH?"}
+        headingMaxWidth="1000px"
+        description="Let's Build A Strategy That Turns Your Restaurant Into A Revenue-Generating Machine."
+        backgroundColor="#EF5B3B"
+        buttons={[
+          {
+            title: "Start With Growth",
+            bgColor: "#387660",
+            color: "white",
+            href: "/contact",
+            icon: <ArrowRight className="w-5 h-5" />,
+          },
+          {
+            title: "Book a Growth Strategy Call",
+            bgColor: "white",
+            color: "#27272A",
+            borderColor: "white",
+            borderWidth: "1px",
+            href: "/contact",
+            icon: <Phone className="w-5 h-5" />,
+          },
+        ]}
+      />
     </>
   )
 }

@@ -5,6 +5,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --breakpoint-900: 900px;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-inter);
@@ -141,4 +142,16 @@
 
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+@media (min-width: 900px) {
+  .order-1-900 {
+    order: 1;
+  }
+  .order-2-900 {
+    order: 2;
+  }
+  .grid-cols-2-900 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }

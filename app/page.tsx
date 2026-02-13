@@ -8,6 +8,9 @@ import TitleCard from "@/components/cards/TitleCard";
 import TopBorderCard from "@/components/cards/TopBorderCard";
 import { Building2, Cog, Map, Megaphone, RefreshCw, Rocket, Search } from "lucide-react";
 import MediaDrivenCard from "@/components/cards/MediaDrivenCard";
+import RealBrands from "@/components/sections/RealBrands";
+import UnstoppableCard from "@/components/cards/UnstoppableCard";
+import { ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Hospyra - Restaurant Growth, Media & Execution Partner",
@@ -54,6 +57,27 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <RealBrands/>
+      <UnstoppableCard
+        heading="Let's Make Your Restaurant Visible Then Unstoppable"
+        description="Everything becomes easier when growth is working. Start with a strategy call and discover what's possible."
+        buttons={[
+          {
+            title: "Book a Free Strategy Call",
+            bgColor: "white",
+            color: "#27272A",
+            href: "/contact",
+          },
+          {
+            title: "Explore Hospyra Services",
+            bgColor: "transparent",
+            color: "white",
+            borderColor: "white",
+            borderWidth: "1px",
+            href: "/services",
+          },
+        ]}
+      />
     </div>
   );
 }

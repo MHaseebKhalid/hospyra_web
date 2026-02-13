@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import AboutBanner from '@/components/banners/AboutBanner'
+import UnstoppableCard from '@/components/cards/UnstoppableCard'
+import { ArrowRight, Phone } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: "About - Hospyra",
@@ -11,14 +13,28 @@ const AboutPage = () => {
   return (
     <>
       <AboutBanner />
-      <div className="min-h-screen bg-background">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <h1 className="text-4xl font-bold mb-8">About</h1>
-          <p className="text-lg text-muted-foreground">
-            Learn more about HOSPYRA and our mission to transform the restaurant industry.
-          </p>
-        </div>
-      </div>
+      <UnstoppableCard
+      headingMaxWidth="1000px"
+        heading="READY TO WORK WITH A REAL PARTNER?"
+        description="Let's Talk About How Hospyra Can Help Your Restaurant Grow"
+        backgroundColor="#EF5B3B"
+        buttons={[
+          {
+            title: "Talk to Hospyra",
+            bgColor: "#3A806E",
+            color: "white",
+            href: "/contact",
+            icon: <ArrowRight className="w-5 h-5" />,
+          },
+          {
+            title: "Book a Strategy Call",
+            bgColor: "white",
+            color: "#27272A",
+            href: "/contact",
+            icon: <Phone className="w-5 h-5" />,
+          },
+        ]}
+      />
     </>
   )
 }
