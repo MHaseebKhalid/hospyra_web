@@ -49,7 +49,7 @@ const GlobalTextarea = ({
 
   return (
     <div className={`w-full ${className}`} >
-      <label style={{ color: labelColor, fontWeight: labelFont }} className="text-[13px] mb-2">
+      <label style={{ color: labelColor, fontWeight: labelFont }} className="text-[14px]">
         {title}
       </label>
       <textarea
@@ -64,7 +64,7 @@ const GlobalTextarea = ({
         rows={rows}
         required={required}
         style={{ width: width, height: height, backgroundColor: bgColor, borderRadius: borderRadius }}
-        className={`globalinput-placeholder placeholder:text-[13px] text-[14px] text-black autofill:text-[#A6A6A6] placeholder:text-[#0A0A0A80] border focus:outline-none block placeholder:font-light border-[#D1D5DC] px-4 py-3 resize-none ${inputClassName}`}
+        className={`globalinput-placeholder placeholder:text-[13px] mt-1 text-[14px] text-black autofill:text-[#A6A6A6] placeholder:text-[#0A0A0A80] border focus:outline-none block placeholder:font-light border-[#D1D5DC] px-4 py-3 resize-none ${inputClassName}`}
       />
       {error && (
         <div className={`${error ? "mb-1" : ""}`}>

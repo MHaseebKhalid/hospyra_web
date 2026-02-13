@@ -94,7 +94,7 @@ const GlobalInput = ({
 
   return (
     <div className={`w-full ${className}`} >
-      <label style={{ color: labelColor, fontWeight: labelFont }} className="text-[13px] mb-2">
+      <label style={{ color: labelColor, fontWeight: labelFont }} className="text-[14px]">
         {title}
       </label>
       <input
@@ -109,7 +109,7 @@ const GlobalInput = ({
         onChange={handleInputChange}
         min={type === "number" ? 0 : undefined}
         style={{ height: height, width: width, backgroundColor: bgColor, borderRadius: borderRadius }}
-        className={`globalinput-placeholder placeholder:text-[13px] text-[14px] text-black autofill:text-[#A6A6A6] placeholder:text-[#0A0A0A80] border focus:outline-none block placeholder:font-light border-[#D1D5DC] px-4 ${inputClassName}`}
+        className={`globalinput-placeholder placeholder:text-[13px] mt-1 text-[14px] text-black autofill:text-[#A6A6A6] placeholder:text-[#0A0A0A80] border focus:outline-none block placeholder:font-light border-[#D1D5DC] px-4 ${inputClassName}`}
       />
       {(error || localError) && (
         <div className={`${error || localError ? "mb-1" : ""}`}>

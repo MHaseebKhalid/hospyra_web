@@ -35,22 +35,20 @@ const UnstoppableCard: React.FC<UnstoppableCardProps> = ({
 
   return (
     <div className='bg-white py-12 px-[4%]'>
-      <div 
-        className='text-center px-8 py-12 md:py-20 rounded-3xl'
+      <div
+        className='text-center px-6 md:px-8 py-12 md:py-20 rounded-3xl'
         style={{ backgroundColor, color: textColor }}
       >
-        <div className='space-y-2'>
-            <p 
-              className='text-[76px] max-[1200px]:text-[60px] max-[1000px]:text-[48px] max-md:text-[36px] font-bold uppercase mx-auto'
-              style={headingMaxWidth ? { maxWidth: headingMaxWidth } : {}}
-            >
-              {heading}
-            </p>
-        </div>
+        <p
+          className='text-[76px] max-[1200px]:text-[60px] max-[1000px]:text-[48px] max-md:text-[32px] font-bold uppercase mx-auto'
+          style={headingMaxWidth ? { maxWidth: headingMaxWidth } : {}}
+        >
+          {heading}
+        </p>
         <p className='text-xl mt-4' style={{ color: textColor === 'white' ? textColor : '#27272A' }}>
           {description}
         </p>
-        
+
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
           {buttons.map((button, idx) => (
             <GlobalButton
