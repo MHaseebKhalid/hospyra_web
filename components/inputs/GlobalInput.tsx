@@ -44,7 +44,7 @@ const GlobalInput = ({
   inputClassName,
   onValidationError,
   width = "100%",
-  labelFont = '400',
+  labelFont = '500',
   bgColor = "transparent",
   type,
   height = "42px",

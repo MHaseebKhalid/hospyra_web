@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import InvestorsBanner from '@/components/banners/InvestorsBanner'
+import InvestorInquiryForm from "@/components/forms/InvestorInquiryForm";
 
 export const metadata: Metadata = {
   title: "Investors - Hospyra",
@@ -11,14 +12,8 @@ const InvestorsPage = () => {
   return (
     <>
       <InvestorsBanner />
-      <div className="min-h-screen bg-background">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <h1 className="text-4xl font-bold mb-8">Investors</h1>
-          <p className="text-lg text-muted-foreground">
-            Learn about investment opportunities with HOSPYRA.
-          </p>
-        </div>
-      </div>
+    
+      <InvestorInquiryForm/>
     </>
   )
 }

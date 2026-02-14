@@ -116,7 +116,7 @@ const ProfessionalPartnerApplyForm = () => {
         <div className="space-y-6">
           <h3 className="text-xl font-semibold text-[#27272A] mb-4">Professional Category</h3>
           <div>
-            <label className="text-[13px] mb-2 block" style={{ color: '#364153', fontWeight: '400' }}>
+            <label className="text-[13px] mb-2 block text-[#364153] font-medium">
               Select your primary role *
             </label>
             <Select value={formData.primaryRole} onValueChange={(value) => setFormData(prev => ({ ...prev, primaryRole: value }))}>

@@ -39,7 +39,7 @@ const GlobalTextarea = ({
   inputClassName,
   width = "100%",
   height = "120px",
-  labelFont = '400',
+  labelFont = '500',
   bgColor = "transparent",
   labelColor = "#364153",
   borderRadius = '10px',
