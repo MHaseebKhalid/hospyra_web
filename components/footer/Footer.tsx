@@ -64,7 +64,7 @@ const Footer = () => {
                     href={service.href}
                     className="block text-white hover:text-[#FF6B35] transition-colors duration-200 text-md"
                   >
-                    {service.name}
+                    {service.name}   
                   </Link>
                 ))}
               </div>
