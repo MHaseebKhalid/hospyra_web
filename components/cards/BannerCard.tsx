@@ -77,7 +77,7 @@ const BannerCard = ({
           </p>
 
           {(primaryButton || secondaryButton || socialProof) && (
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 pt-4">
+            <div className="flex flex-col whitespace-nowrap sm:flex-row items-center justify-center gap-4 md:gap-6 pt-4">
               {primaryButton && (
                 <Link href={primaryButton.href} className='max-sm:w-full'>
                   <button className="max-sm:w-full justify-center flex items-center cursor-pointer gap-2 bg-[#FF6B35] hover:bg-[#FF8555] text-white font-light px-8 py-3 rounded-full transition-colors duration-200 text-base md:text-lg">

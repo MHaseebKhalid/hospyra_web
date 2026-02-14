@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import ExpansionBanner from '@/components/banners/ExpansionBanner'
 import FeatureCard from "@/components/cards/FeatureCard";
 import TitleCard from "@/components/cards/TitleCard";
+import WhatMakeHospyraExpansionDifferent from '@/components/sections/WhatMakeHospyraExpansionDifferent';
 import expansion_ideal_1 from "@/public/assets/pngs/expansion-ideal-for-1.png";
 import expansion_ideal_2 from "@/public/assets/pngs/expansion-ideal-for-2.png";
 import expansion_ideal_3 from "@/public/assets/pngs/expansion-ideal-for-3.png";
@@ -17,6 +18,8 @@ const ExpansionPage = () => {
   return (
     <>
       <ExpansionBanner />
+      <WhatMakeHospyraExpansionDifferent />
+
       <div className='bg-[#fffdfb] py-14'>
         <TitleCard title={'Ideal For'} className='px-[4%]' />
         <div className='flex overflow-x-auto hide-scrollbar gap-6 px-[4%] pt-12'>
@@ -30,5 +33,4 @@ const ExpansionPage = () => {
   )
 }
 
-export default ExpansionPage
-
+export default ExpansionPage;

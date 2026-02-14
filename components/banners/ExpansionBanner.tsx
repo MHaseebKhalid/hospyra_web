@@ -10,7 +10,7 @@ const ExpansionBanner = () => {
       description="Hospyra Helps Operators Expand With Confidence By Aligning The Right Concept, Capital, Location, And Execution All Under One Roof."
       topLabel="Full Hospitality Execution Ecosystem"
       primaryButton={{
-        text: 'Get a Free Expansion & Funding Plan',
+        text: 'Get a Free Expansion Plan',
         href: '/contact',
       }}
       secondaryButton={{
