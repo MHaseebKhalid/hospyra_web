@@ -5,6 +5,7 @@ import TitleCard from "@/components/cards/TitleCard";
 import TopBorderCard from "@/components/cards/TopBorderCard";
 import { Briefcase, HeartHandshake, Rocket, UserStar, Workflow } from "lucide-react";
 import ProfessionalPartnerApplyForm from "@/components/forms/ProfessionalPartnerApplyForm";
+import ProfessionalCoordination from "@/components/sections/ProfessionalCoordination";
 
 export const metadata: Metadata = {
   title: "Partner - Hospyra",
@@ -16,7 +17,7 @@ const PartnerPage = () => {
   return (
     <>
       <PartnerBanner />
-      <div className="bg-[#F6F6F6] py-16">
+      <div className="bg-[#F6F6F6] py-12">
         <TitleCard title="HOW THE PARTNERSHIP WORKS" orangeLabel="" className="px-[4%]" />
         <div className="flex gap-6 px-[4%] hide-scrollbar py-10 overflow-x-auto">
           <TopBorderCard className="w-70.75" title={"Apply as a professional"} icon={<Briefcase className="h-6 w-6 text-[#F05830]" />} count="01" />
@@ -26,6 +27,7 @@ const PartnerPage = () => {
           <TopBorderCard className="w-70.75" title={"You grow with the Hospyra ecosystem"} icon={<Rocket className="h-6 w-6 text-[#F05830]" />} count="05" />
         </div>
       </div>
+      <ProfessionalCoordination/>
       <ProfessionalPartnerApplyForm/>
       <UnstoppableCard
         heading="READY TO WORK ON SERIOUS HOSPITALITY PROJECTS?"

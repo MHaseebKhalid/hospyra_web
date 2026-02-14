@@ -4,7 +4,7 @@ type props = {
   title: string,
   color?: string,
   className?: string,
-  orangeLabel: string,
+  orangeLabel?: string,
   labelColor?: string,
   titleClassName?: string
 }

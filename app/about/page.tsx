@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import AboutBanner from '@/components/banners/AboutBanner'
 import UnstoppableCard from '@/components/cards/UnstoppableCard'
 import { ArrowRight, Phone } from 'lucide-react'
+import OurPhilosophy from "@/components/sections/OurPhilosophy";
+import WhyWeDifferent from "@/components/sections/WhyWeDifferent";
 
 export const metadata: Metadata = {
   title: "About - Hospyra",
@@ -13,6 +15,8 @@ const AboutPage = () => {
   return (
     <>
       <AboutBanner />
+      <OurPhilosophy/>
+      <WhyWeDifferent/>
       <UnstoppableCard
       headingMaxWidth="1000px"
         heading="READY TO WORK WITH A REAL PARTNER?"

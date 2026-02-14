@@ -40,7 +40,7 @@ const UnstoppableCard: React.FC<UnstoppableCardProps> = ({
         style={{ backgroundColor, color: textColor }}
       >
         <p
-          className='text-[76px] max-[1200px]:text-[60px] max-[1000px]:text-[48px] max-md:text-[32px] font-bold uppercase mx-auto'
+          className='font-antonio text-[96px] max-[1250px]:text-[70px] max-[1000px]:text-[48px] max-md:text-[32px] font-bold uppercase mx-auto'
           style={headingMaxWidth ? { maxWidth: headingMaxWidth } : {}}
         >
           {heading}
