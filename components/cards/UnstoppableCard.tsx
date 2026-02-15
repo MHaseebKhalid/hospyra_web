@@ -34,7 +34,7 @@ const UnstoppableCard: React.FC<UnstoppableCardProps> = ({
   const router = useRouter()
 
   return (
-    <div className='bg-white py-12 px-[4%]'>
+    <div className='py-12 px-[4%]'>
       <div
         className='text-center px-6 md:px-8 py-12 md:py-20 rounded-3xl'
         style={{ backgroundColor, color: textColor }}
