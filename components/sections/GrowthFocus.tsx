@@ -72,7 +72,7 @@ const GrowthFocus = () => {
         />
         <div className="flex overflow-x-auto hide-scrollbar gap-6 px-[4%]">
           {growthServices.map((item, index) => (
-            <div className='w-95 shrink-0'>
+            <div key={index} className='w-95 shrink-0'>
               <div className='relative h-65'>
               <Image src={item.image} alt={item.title} fill className='object-cover rounded-[24px]' />
               </div>
