@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 const Home = () => {
   return (
     <div>
-    <HomeBanner />
+      <HomeBanner />
       <TrustedByRestaurants />
       <WhyHospyraExists />
       <MarketingAndMedia />
@@ -57,7 +57,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <RealBrands/>
+      <RealBrands />
       <UnstoppableCard
         heading="Let's Make Your Restaurant Visible Then Unstoppable"
         description="Everything becomes easier when growth is working. Start with a strategy call and discover what's possible."
