@@ -1,16 +1,15 @@
 import type { Metadata } from "next";
+import TitleCard from "@/components/cards/TitleCard";
 import HomeBanner from "@/components/banners/HomeBanner";
-import MarketingAndMedia from "@/components/sections/MarketingAndMedia";
-import TrustedByRestaurants from "@/components/sections/TrustedByRestaurants";
+import RealBrands from "@/components/sections/RealBrands";
+import TopBorderCard from "@/components/cards/TopBorderCard";
+import MediaDrivenCard from "@/components/cards/MediaDrivenCard";
+import UnstoppableCard from "@/components/cards/UnstoppableCard";
 import TrustedPartners from "@/components/sections/TrustedPartners";
 import WhyHospyraExists from "@/components/sections/WhyHospyraExists";
-import TitleCard from "@/components/cards/TitleCard";
-import TopBorderCard from "@/components/cards/TopBorderCard";
+import MarketingAndMedia from "@/components/sections/MarketingAndMedia";
+import TrustedByRestaurants from "@/components/sections/TrustedByRestaurants";
 import { Building2, Cog, Map, Megaphone, RefreshCw, Rocket, Search } from "lucide-react";
-import MediaDrivenCard from "@/components/cards/MediaDrivenCard";
-import RealBrands from "@/components/sections/RealBrands";
-import UnstoppableCard from "@/components/cards/UnstoppableCard";
-import { ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Hospyra - Restaurant Growth, Media & Execution Partner",
