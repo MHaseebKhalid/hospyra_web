@@ -18,6 +18,7 @@ export const metadata: Metadata = {
 };
 
 const Home = () => {
+  
   return (
     <div>
       <HomeBanner />
