@@ -18,15 +18,17 @@ const HomeBanner = () => {
           </div>
         </div>
       </div>
-      <div className="relative w-[90%] max-[1200px]:w-full ml-auto">
-        <Image
-          src={RightImg}
-          alt=""
-          fill
-          className="rounded-[24px] object-cover"
-        />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white w-19 cursor-pointer h-10 rounded-full flex items-center justify-center shadow-md">
-          <Play fill="#1E50C1" stroke="#1E50C1" size={18} />
+      <div className='flex justify-end'>
+        <div className="relative w-[90%] max-[1200px]:w-full">
+          <Image
+            src={RightImg}
+            alt=""
+            // fill
+            className="rounded-[24px] w-full object-cover"
+          />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white w-19 cursor-pointer h-10 rounded-full flex items-center justify-center shadow-md">
+            <Play fill="#1E50C1" stroke="#1E50C1" size={18} />
+          </div>
         </div>
       </div>
     </div>
