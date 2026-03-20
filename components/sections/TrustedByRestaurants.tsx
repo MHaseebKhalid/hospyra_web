@@ -1,7 +1,6 @@
 'use client'
 
-import React, { useState, useRef, useEffect } from 'react'
-import TitleCard from '../cards/TitleCard'
+import { useState, useRef, useEffect } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 const videos = [
@@ -39,22 +38,13 @@ const TrustedByRestaurants = () => {
   }
 
   return (
-    <div className="py-14 bg-[#F6F6F6] overflow-hidden">
-      <div className="mx-auto px-[4%] max-w-5xl">
-        <TitleCard
-          title="Trusted by Restaurants That Take Growth Seriously"
-          orangeLabel="TRUSTED BY LEADING HOSPITALITY BRANDS"
-          className="px-10"
-        />
-
-        <p className="text-center text-xl md:text-2xl font-light mt-5 text-[#27272A]">
-          Hospyra Works With Restaurant Brands Across Fast-Casual,
-          Premium Dining, Lifestyle Concepts, And Large-Format Hospitality.
-        </p>
-      </div>
+    <div className="py-14 overflow-hidden">
+      <h2 className="text-[46px] text-center max-[1200px]:text-[36px] max-[640px]:text-[28px] font-semibold">
+        TRUSTED BY GROWING BRANDS
+      </h2>
 
       {/* ===== Carousel ===== */}
-      <div className="relative mt-12">
+      <div className="relative mt-8">
         <div className="overflow-hidden w-full">
           <div
             className="flex gap-6 transition-transform duration-500 ease-in-out"

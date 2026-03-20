@@ -1,14 +1,8 @@
 import type { Metadata } from "next";
-import { Inter, Antonio } from "next/font/google";
+import { Antonio } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/footer/Footer";
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap",
-});
 
 const antonio = Antonio({
   variable: "--font-antonio",
@@ -36,8 +30,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link href="https://fonts.cdnfonts.com/css/effra-trial" rel="stylesheet" />
+      </head>
       <body
-        className={`${inter.variable} ${antonio.variable} font-inter antialiased`}
+        className={`${antonio.variable} font-effra antialiased`}
       >
         <Navbar />
         {children}

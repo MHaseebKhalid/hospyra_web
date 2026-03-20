@@ -49,7 +49,7 @@ const GlobalButton = ({
         alignItems: 'center',
         justifyContent: 'center',
       }}
-      className={`gap-2 ${className} text-[15px] max-[540px]:text-[13px] tracking-[0.1px]`}
+      className={`gap-2 ${className} text-[15px] px-2 text-center max-[540px]:text-[13px] tracking-[0.1px]`}
       onClick={onClick}
     >
       {title}
