@@ -82,13 +82,13 @@ const WhyJoinHospyra = () => {
           ))}
         </div>
 
-        <div className="md:grid flex overflow-auto hide-scrollbar grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5 mt-10 px-[4%]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5 mt-10 px-[4%]">
           {cards.map((card, i) => (
             <div
               key={i}
-              className="rounded-2xl p-4 bg-[#27272A]/90 overflow-hidden shrink-0 w-[320px] md:w-full"
+              className="rounded-2xl p-3 sm:p-4 bg-[#27272A]/90 overflow-hidden"
             >
-              <div className="relative h-22 rounded-xl overflow-clip">
+              <div className="relative h-28 sm:h-22 rounded-xl overflow-clip">
                 <Image
                   src={card.image}
                   alt=""
@@ -110,9 +110,10 @@ const WhyJoinHospyra = () => {
           <button
             type="button"
             onClick={() => openModal()}
-            className="inline-flex items-center gap-2 px-8 py-3 rounded-lg bg-[#1E50C1] text-white font-medium font-effra hover:bg-[#1a45a8] transition-colors"
+            className="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-8 py-3 rounded-lg bg-[#1E50C1] text-white font-effra hover:bg-[#1a45a8] transition-colors"
           >
-            👉 Join Now Pay $0 Signup Fee (Limited Time $499 Value)
+            <span className='hidden sm:block text-center'>👉 Join Now Pay $0 Signup Fee (Limited Time $499 Value)</span>
+            <span className='sm:hidden block text-center'>Join Now Pay</span>
           </button>
         </div>
       </div>

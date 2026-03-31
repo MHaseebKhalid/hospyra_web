@@ -11,9 +11,9 @@ const HomeBanner = () => {
         <p className='text-[46px] max-[1200px]:text-[36px] max-[640px]:text-[28px] font-semibold leading-16 max-[1200px]:leading-12 max-[640px]:leading-10'>Complete System Designed To Run Your Entire Business Through One Platform</p>
         <p className='text-lg'>Hosperra combines expertise, a strong supplier network, and technology with dedicated support. We improve your product, elevate customer experience, increase revenue, and reduce costs while keeping operations structured.</p>
         <p className='text-[#FF3500] text-lg'>Pay $0 Signup Fee (Limited Time — $499 Value)</p>
-        <div className='flex gap-4 mt-8'>
+        <div className='flex max-[550px]:flex-col gap-4 mt-4 sm:mt-8'>
           <GlobalButton title='Join Now' className='px-6' borderRadius='8px' height='45px' bgColor='#1E50C1' color='white' />
-          <div className='underline flex cursor-pointer font-medium items-center gap-2'>
+          <div className='underline flex cursor-pointer font-medium items-center max-[550px]:justify-center gap-2'>
             Book a Demo <ArrowRight size={20} />
           </div>
         </div>

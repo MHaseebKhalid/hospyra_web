@@ -58,11 +58,11 @@ const Platform = () => {
         </Link>
       </div>
 
-      <div className="flex lg:grid grid-cols-3 gap-4 md:gap-5 px-[4%] max-lg:overflow-auto hide-scrollbar">
+      <div className="grid grid-cols-1 min-[500px]:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5 px-[4%]">
         {features.map((feature) => (
           <div
             key={feature.title}
-            className="rounded-2xl bg-linear-to-t from-[#FFF7F5] to-[#F8F7F7] p-6 md:p-8 shrink-0 w-[320px] lg:w-full"
+            className="rounded-2xl bg-linear-to-t from-[#FFF7F5] to-[#F8F7F7] p-6 md:p-8"
           >
             <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center mb-4">
               <Image src={feature.icon} alt="" width={28} height={28} />
