@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { useFormHandlers } from '@/hooks/useFormHandlers';
@@ -9,7 +8,7 @@ import { useFormSubmission } from '@/hooks/useFormSubmission';
 import { FormField } from '@/types/formHandler';
 import { FormDataRecord, FieldValue } from '@/types/common';
 
-const HOSPERRA_PARTNER_ID = 16;
+const HOSPYRA_BRAND_ID = 11;
 
 const STEPS = [
   {
@@ -188,8 +187,10 @@ export const JoinHospyraModal: React.FC<JoinHospyraModalProps> = ({
   onOpenChange,
   initialValues = {},
 }) => {
-  const router = useRouter();
-  const { formHandlers, isLoading, error } = useFormHandlers(open ? HOSPERRA_PARTNER_ID : null);
+  const { formHandlers, isLoading, error } = useFormHandlers({
+    brandId: open ? HOSPYRA_BRAND_ID : null,
+    isBusiness: true,
+  });
   const { submitAndProcessForm, isSubmitting } = useFormSubmission();
   const [formData, setFormData] = useState<FormDataRecord>({});
   const [parsedFields, setParsedFields] = useState<FormField[]>([]);
@@ -291,8 +292,7 @@ export const JoinHospyraModal: React.FC<JoinHospyraModalProps> = ({
     });
   };
 
-  const handleSubmit = async (e?: React.FormEvent) => {
-    e?.preventDefault();
+  const handleSubmit = async () => {
     if (!isLastStep) return;
     setSubmitError(null);
 
@@ -306,20 +306,22 @@ export const JoinHospyraModal: React.FC<JoinHospyraModalProps> = ({
 
     if (!formHandlers?.length) return;
 
-    try {
-      const formHandler = formHandlers[0];
-      const submitData: FormDataRecord = { ...formData };
-      parsedFields.forEach((f) => {
-        if (isInviteCodeField(f)) submitData[f.id] = HIDDEN_INVITE_CODE;
-      });
-      await submitAndProcessForm({
-        formId: formHandler.id,
-        brandId: formHandler.brand_id || 1,
-        data: submitData,
-        file: null,
-      });
+    const formHandler = formHandlers[0];
+    const submitData: FormDataRecord = { ...formData };
+    parsedFields.forEach((f) => {
+      if (isInviteCodeField(f)) submitData[f.id] = HIDDEN_INVITE_CODE;
+    });
+
+    const result = await submitAndProcessForm({
+      formId: formHandler.id,
+      brandId: formHandler.brand?.id || formHandler.brand_id || HOSPYRA_BRAND_ID,
+      data: submitData,
+      file: null,
+    });
+
+    if (result) {
       setShowSuccess(true);
-    } catch {
+    } else {
       setSubmitError('Error submitting form. Please try again.');
     }
   };
@@ -327,7 +329,6 @@ export const JoinHospyraModal: React.FC<JoinHospyraModalProps> = ({
   const handleSuccessClose = () => {
     setShowSuccess(false);
     onOpenChange(false);
-    router.push('/contact');
   };
 
   const stepsWithFields = [1, 2, 3, 4, 5, 6].filter((s) => (fieldsByStep[s]?.length ?? 0) > 0);
@@ -459,7 +460,6 @@ export const JoinHospyraModal: React.FC<JoinHospyraModalProps> = ({
               value={Array.isArray(fieldValue) ? '' : fieldValue}
               onChange={(e) => handleInputChange(fieldId, e.target.value)}
               placeholder={fieldPlaceholder}
-              required={field.required}
               className={inputClass}
             />
             {fieldError && (
@@ -478,7 +478,6 @@ export const JoinHospyraModal: React.FC<JoinHospyraModalProps> = ({
               value={Array.isArray(fieldValue) ? '' : fieldValue}
               onChange={(e) => handleInputChange(fieldId, e.target.value)}
               placeholder={fieldPlaceholder}
-              required={field.required}
               rows={4}
               className={inputClass}
             />
@@ -498,7 +497,6 @@ export const JoinHospyraModal: React.FC<JoinHospyraModalProps> = ({
             <select
               value={Array.isArray(fieldValue) ? '' : fieldValue}
               onChange={(e) => handleInputChange(fieldId, e.target.value)}
-              required={field.required}
               className={inputClass}
             >
               <option value="">Select {fieldLabel}</option>
@@ -580,7 +578,6 @@ export const JoinHospyraModal: React.FC<JoinHospyraModalProps> = ({
               value={Array.isArray(fieldValue) ? '' : fieldValue}
               onChange={(e) => handleInputChange(fieldId, e.target.value)}
               placeholder={fieldPlaceholder}
-              required={field.required}
               className={inputClass}
             />
             {fieldError && (
@@ -600,7 +597,7 @@ export const JoinHospyraModal: React.FC<JoinHospyraModalProps> = ({
               Application Received
             </h2>
             <p className="text-gray-600 font-effra text-sm leading-relaxed mb-6">
-              Thank you for applying to Hosperra. Our team will review your business and reach out
+              Thank you for applying to {formHandlers?.[0]?.brand?.name || 'Hospyra'}. Our team will review your business and reach out
               shortly to discuss next steps.
             </p>
             <button
@@ -617,11 +614,33 @@ export const JoinHospyraModal: React.FC<JoinHospyraModalProps> = ({
   }
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent onClose={() => onOpenChange(false)} className="max-w-md mx-auto">
-        <h2 className="text-xl font-bold text-gray-900 font-effra mb-1">
-          Join Hosperra
-        </h2>
+    <Dialog open={open} onOpenChange={(val) => { if (!isSubmitting) onOpenChange(val); }}>
+      <DialogContent onClose={() => { if (!isSubmitting) onOpenChange(false); }} className="max-w-md mx-auto">
+        {formHandlers?.[0]?.brand ? (
+          <div className="flex items-center gap-3 mb-1">
+            {formHandlers[0].brand.image && (
+              <img
+                src={formHandlers[0].brand.image}
+                alt={formHandlers[0].brand.name}
+                className="w-10 h-10 rounded-lg object-cover"
+              />
+            )}
+            <div>
+              <h2 className="text-xl font-bold text-gray-900 font-effra">
+                Join {formHandlers[0].brand.name}
+              </h2>
+              {formHandlers[0].brand.description && (
+                <p className="text-xs text-gray-500 font-effra line-clamp-1">
+                  {formHandlers[0].brand.description}
+                </p>
+              )}
+            </div>
+          </div>
+        ) : (
+          <h2 className="text-xl font-bold text-gray-900 font-effra mb-1">
+            Join Hospyra
+          </h2>
+        )}
 
         {/* Stepper */}
         <div className="flex items-center justify-between gap-1 my-4">
@@ -656,13 +675,7 @@ export const JoinHospyraModal: React.FC<JoinHospyraModalProps> = ({
         )}
 
         {!isLoading && !error && parsedFields.length > 0 && (
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              if (isLastStep) handleSubmit(e);
-            }}
-            className="space-y-2"
-          >
+          <div className="space-y-2">
             {currentFields.length > 0 ? (
               <>
                 <div className="mb-2">
@@ -735,7 +748,7 @@ export const JoinHospyraModal: React.FC<JoinHospyraModalProps> = ({
                 No fields in this step. Use Next to continue.
               </div>
             )}
-          </form>
+          </div>
         )}
 
         {!isLoading && !error && formHandlers?.length > 0 && parsedFields.length === 0 && (

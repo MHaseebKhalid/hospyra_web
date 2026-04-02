@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { apolloClient } from '@/lib/apolloClient';
-import { SUBMIT_FORM, PROCESS_SUBMISSION } from '@/graphql/mutations/formSubmission';
+import { SUBMIT_BRAND_FORM, PROCESS_SUBMISSION } from '@/graphql/mutations/formSubmission';
 import { FormDataRecord, UploadFile } from '@/types/common';
 
 interface SubmitFormParams {
@@ -17,40 +17,69 @@ interface ProcessSubmissionParams {
   brandId: number;
 }
 
+interface SubmitResult {
+  submitResult: Record<string, unknown> | null;
+  processResult: Record<string, unknown> | null;
+}
+
 export const useFormSubmission = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const submitForm = async (params: SubmitFormParams) => {
-    const result = await apolloClient.mutate({
-      mutation: SUBMIT_FORM,
-      variables: {
-        formId: params.formId,
-        brandId: params.brandId,
-        data: params.data,
-        file: params.file || null,
-      },
-    });
-    return result.data?.submitForm;
+  const submitBrandForm = async (params: SubmitFormParams) => {
+    try {
+      const result = await apolloClient.mutate({
+        mutation: SUBMIT_BRAND_FORM,
+        variables: {
+          formId: params.formId,
+          brandId: params.brandId,
+          data: params.data,
+          file: params.file || null,
+        },
+        errorPolicy: 'all',
+      });
+
+      if (result.errors?.length) {
+        console.error('submitBrandForm GraphQL errors:', result.errors);
+        throw new Error(result.errors[0]?.message || 'GraphQL error during form submission');
+      }
+
+      return result.data?.submitBrandForm;
+    } catch (err) {
+      console.error('submitBrandForm error:', err);
+      throw err;
+    }
   };
 
   const processSubmission = async (params: ProcessSubmissionParams) => {
-    const result = await apolloClient.mutate({
-      mutation: PROCESS_SUBMISSION,
-      variables: {
-        submissionId: params.submissionId,
-        brandId: params.brandId,
-      },
-    });
-    return result.data?.processSubmission;
+    try {
+      const result = await apolloClient.mutate({
+        mutation: PROCESS_SUBMISSION,
+        variables: {
+          submissionId: params.submissionId,
+          brandId: params.brandId,
+        },
+        errorPolicy: 'all',
+      });
+
+      if (result.errors?.length) {
+        console.error('processSubmission GraphQL errors:', result.errors);
+        return null;
+      }
+
+      return result.data?.processSubmission;
+    } catch (err) {
+      console.error('processSubmission error:', err);
+      return null;
+    }
   };
 
-  const submitAndProcessForm = async (params: SubmitFormParams) => {
+  const submitAndProcessForm = async (params: SubmitFormParams): Promise<SubmitResult | null> => {
     setIsSubmitting(true);
     setError(null);
 
     try {
-      const submitResult = await submitForm(params);
+      const submitResult = await submitBrandForm(params);
 
       if (submitResult?.id) {
         const submissionId = submitResult.id;
@@ -63,30 +92,27 @@ export const useFormSubmission = () => {
           localStorage.setItem('userId', submitResult.user_id.toString());
         }
 
-        try {
-          const processResult = await processSubmission({
-            submissionId,
-            brandId: submissionBrandId,
-          });
+        const processResult = await processSubmission({
+          submissionId,
+          brandId: submissionBrandId,
+        });
 
-          if (processResult?.stripe_client_secret) {
-            localStorage.setItem('clientSecret', processResult.stripe_client_secret);
-          }
-          if (processResult?.user_id) {
-            localStorage.setItem('userId', processResult.user_id.toString());
-          }
-
-          return { submitResult, processResult };
-        } catch {
-          return { submitResult, processResult: null };
+        if (processResult?.stripe_client_secret) {
+          localStorage.setItem('clientSecret', processResult.stripe_client_secret);
         }
-      } else {
-        throw new Error('Form submission failed');
+        if (processResult?.user_id) {
+          localStorage.setItem('userId', processResult.user_id.toString());
+        }
+
+        return { submitResult, processResult };
       }
+
+      setError('Form submission failed — no submission ID returned.');
+      return null;
     } catch (err: unknown) {
       const errorMessage = err instanceof Error ? err.message : 'Error submitting form';
       setError(errorMessage);
-      throw err;
+      return null;
     } finally {
       setIsSubmitting(false);
     }

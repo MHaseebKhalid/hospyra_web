@@ -15,11 +15,24 @@ export interface FormField {
   value?: FieldValue;
 }
 
+export interface Brand {
+  id: number;
+  name: string;
+  description: string;
+  image: string;
+  category_id: number;
+  domain_url: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface FormHandler {
   id: number;
   partner_id: number;
   service_id: number;
   brand_id: number;
+  is_business: boolean;
+  brand: Brand;
   service_url: string;
   form_data: FormField[];
   created_at: string;

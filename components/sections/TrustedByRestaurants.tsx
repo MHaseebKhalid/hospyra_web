@@ -41,22 +41,52 @@ const slides: Slide[] = [
 const TrustedByRestaurants = () => {
   const [carouselIndex, setCarouselIndex] = useState(0)
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([])
+  const playbackCycleRef = useRef(0)
 
   const totalSlides = slides.length
 
   useEffect(() => {
-    videoRefs.current.forEach((video, index) => {
-      if (!video) return
+    const cycle = ++playbackCycleRef.current
 
-      if (slides[index].type === "video") {
-        if (index === carouselIndex) {
-          video.currentTime = 0
-          video.play()
-        } else {
-          video.pause()
-        }
+    // Pause every video first so no in-flight play() overlaps pause() (avoids Chrome goo.gl/LdLk22)
+    videoRefs.current.forEach((video, index) => {
+      if (video && slides[index].type === "video") {
+        video.pause()
       }
     })
+
+    const video = videoRefs.current[carouselIndex]
+    if (!video || slides[carouselIndex]?.type !== "video") {
+      return () => {
+        playbackCycleRef.current += 1
+      }
+    }
+
+    // Defer play until after pause has settled (next frame + microtask)
+    let raf = requestAnimationFrame(() => {
+      raf = requestAnimationFrame(() => {
+        queueMicrotask(() => {
+          if (cycle !== playbackCycleRef.current) return
+          const el = videoRefs.current[carouselIndex]
+          if (!el || slides[carouselIndex]?.type !== "video") return
+          el.currentTime = 0
+          const p = el.play()
+          if (p !== undefined) {
+            p.catch(() => {
+              /* aborted: slide changed, tab hidden, etc. */
+            })
+          }
+        })
+      })
+    })
+
+    return () => {
+      cancelAnimationFrame(raf)
+      playbackCycleRef.current += 1
+      videoRefs.current.forEach((v, index) => {
+        if (v && slides[index].type === "video") v.pause()
+      })
+    }
   }, [carouselIndex])
 
   const nextSlide = () => {
