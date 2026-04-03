@@ -135,7 +135,13 @@ const Navbar = () => {
             ))}
           </div>
 
-          <div className="max-[1200px]:hidden flex">
+          <div className="max-[1200px]:hidden flex items-center gap-3">
+            <Link
+              href="/register"
+              className="text-sm font-medium font-effra text-[#27272A] hover:text-[#FF6B35] transition-colors"
+            >
+              Register
+            </Link>
             <GlobalButton title='Join Hosperra' font='500' className='px-6 font-effra' borderRadius='8px' height='45px' bgColor='#1E50C1' color='white' onClick={handleJoinClick} />
           </div>
 
@@ -217,8 +223,15 @@ const Navbar = () => {
             ))}
           </nav>
 
-          <div className="p-6 border-t">
-            <GlobalButton title='Join Hosperra' font='500' className='px-6 font-effra' borderRadius='8px' height='45px' bgColor='#1E50C1' color='white' onClick={handleJoinClick} />
+          <div className="p-6 border-t space-y-3">
+            <Link
+              href="/register"
+              onClick={closeSidebar}
+              className="block w-full text-center rounded-lg border border-gray-200 py-3 text-sm font-medium font-effra text-[#27272A] hover:bg-gray-50"
+            >
+              Register
+            </Link>
+            <GlobalButton title='Join Hosperra' font='500' className='px-6 font-effra w-full' borderRadius='8px' height='45px' bgColor='#1E50C1' color='white' onClick={handleJoinClick} />
           </div>
         </div>
       </aside>

@@ -38,3 +38,15 @@ export interface FormHandler {
   created_at: string;
   updated_at: string;
 }
+
+/** Shape returned by getFormHandlersByPartnerId (may omit brand / is_business). */
+export interface PartnerFormHandler {
+  id: number;
+  partner_id: number;
+  service_id: number;
+  brand_id: number;
+  service_url?: string;
+  form_data: FormField[];
+  created_at: string;
+  updated_at: string;
+}
