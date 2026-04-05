@@ -1,8 +1,9 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { Modal, ModalPanel } from '@/components/ui/modal';
+import { FormFieldSelect } from '@/components/forms/FormFieldSelect';
 import { useFormHandlers } from '@/hooks/useFormHandlers';
 import { useFormSubmission } from '@/hooks/useFormSubmission';
 import { FormField } from '@/types/formHandler';
@@ -408,9 +409,8 @@ export const JoinHospyraModal: React.FC<JoinHospyraModalProps> = ({
       : [];
 
     const fieldError = fieldErrors[fieldId];
-    const inputClass = `w-full px-3 py-2 border rounded-lg text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[#1E50C1] focus:border-transparent ${
-      fieldError ? 'border-red-500' : 'border-gray-300'
-    }`;
+    const inputClass = `w-full px-3 py-2 border rounded-lg text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[#1E50C1] focus:border-transparent ${fieldError ? 'border-red-500' : 'border-gray-300'
+      }`;
     const labelClass = 'block text-sm font-medium text-gray-700 mb-1 font-effra';
 
     if (isMultiSelect || (field.label?.toLowerCase().includes('service') && field.options?.length)) {
@@ -490,30 +490,18 @@ export const JoinHospyraModal: React.FC<JoinHospyraModalProps> = ({
       case 'select':
       case 'dropdown':
         return (
-          <div key={field.id} className="mb-4">
-            <label className={labelClass}>
-              {fieldLabel} {field.required && <span className="text-red-500">*</span>}
-            </label>
-            <select
-              value={Array.isArray(fieldValue) ? '' : fieldValue}
-              onChange={(e) => handleInputChange(fieldId, e.target.value)}
-              className={inputClass}
-            >
-              <option value="">Select {fieldLabel}</option>
-              {field.options?.map((option, index) => {
-                const optVal = typeof option === 'string' ? option : String(option.value ?? '');
-                const optLabel = typeof option === 'string' ? option : String(option.label ?? optVal);
-                return (
-                  <option key={index} value={optVal}>
-                    {optLabel}
-                  </option>
-                );
-              })}
-            </select>
-            {fieldError && (
-              <p className="mt-1 text-xs text-red-600 font-effra">{fieldError}</p>
-            )}
-          </div>
+          <FormFieldSelect
+            key={field.id}
+            fieldId={fieldId}
+            label={fieldLabel}
+            required={field.required}
+            value={Array.isArray(fieldValue) ? '' : fieldValue}
+            options={field.options}
+            onValueChange={(v) => handleInputChange(fieldId, v)}
+            error={fieldError}
+            inModal
+            className="mb-4"
+          />
         );
 
       case 'checkbox':
@@ -590,12 +578,14 @@ export const JoinHospyraModal: React.FC<JoinHospyraModalProps> = ({
 
   if (showSuccess) {
     return (
-      <Dialog open={open} onOpenChange={() => handleSuccessClose()}>
-        <DialogContent onClose={handleSuccessClose} className="max-w-md mx-auto text-center">
-          <div className="py-6">
-            <h2 className="text-xl font-bold text-gray-900 font-effra mb-3">
-              Application Received
-            </h2>
+      <Modal open={open} onOpenChange={() => handleSuccessClose()}>
+        <ModalPanel
+          onClose={handleSuccessClose}
+          className="max-w-md mx-auto text-center"
+          headingText="Application Received"
+          headingClassName="text-gray-900"
+        >
+          <div className="pb-2">
             <p className="text-gray-600 font-effra text-sm leading-relaxed mb-6">
               Thank you for applying to {formHandlers?.[0]?.brand?.name || 'Hospyra'}. Our team will review your business and reach out
               shortly to discuss next steps.
@@ -608,42 +598,47 @@ export const JoinHospyraModal: React.FC<JoinHospyraModalProps> = ({
               Close
             </button>
           </div>
-        </DialogContent>
-      </Dialog>
+        </ModalPanel>
+      </Modal>
     );
   }
 
+  const brand = formHandlers?.[0]?.brand;
+  const joinHeadingText = brand ? `Join ${brand.name}` : 'Join Hospyra';
+
   return (
-    <Dialog open={open} onOpenChange={(val) => { if (!isSubmitting) onOpenChange(val); }}>
-      <DialogContent onClose={() => { if (!isSubmitting) onOpenChange(false); }} className="max-w-md mx-auto">
-        {formHandlers?.[0]?.brand ? (
-          <div className="flex items-center gap-3 mb-1">
-            {formHandlers[0].brand.image && (
+    <Modal open={open} onOpenChange={(val) => { if (!isSubmitting) onOpenChange(val); }}>
+      <ModalPanel
+        onClose={() => {
+          if (!isSubmitting) onOpenChange(false);
+        }}
+        className="max-w-md mx-auto"
+        headingText={joinHeadingText}
+        headingClassName="text-gray-900"
+      >
+        {brand && (brand.image || brand.description) ? (
+          <div className="mb-4 flex min-w-0 items-center gap-3">
+            {brand.image ? (
               <img
-                src={formHandlers[0].brand.image}
-                alt={formHandlers[0].brand.name}
-                className="w-10 h-10 rounded-lg object-cover"
+                src={brand.image}
+                alt={brand.name}
+                className="h-10 w-10 shrink-0 rounded-lg object-cover"
               />
-            )}
-            <div>
-              <h2 className="text-xl font-bold text-gray-900 font-effra">
-                Join {formHandlers[0].brand.name}
-              </h2>
-              {formHandlers[0].brand.description && (
-                <p className="text-xs text-gray-500 font-effra line-clamp-1">
-                  {formHandlers[0].brand.description}
-                </p>
-              )}
-            </div>
+            ) : null}
+            {brand.description ? (
+              <p className="line-clamp-1 text-xs text-gray-500 font-effra">{brand.description}</p>
+            ) : null}
           </div>
-        ) : (
-          <h2 className="text-xl font-bold text-gray-900 font-effra mb-1">
-            Join Hospyra
-          </h2>
-        )}
+        ) : null}
+        {brand && !brand.description ? (
+          <p className="sr-only">Apply to join {brand.name}</p>
+        ) : null}
+        {!brand ? (
+          <p className="sr-only">Complete the application form to join Hospyra</p>
+        ) : null}
 
         {/* Stepper */}
-        <div className="flex items-center justify-between gap-1 my-4">
+        <div className="flex items-center justify-between gap-1 mb-4">
           {[1, 2, 3, 4, 5, 6].map((step) => {
             const hasFields = (fieldsByStep[step]?.length ?? 0) > 0;
             const isActive = step === currentStep;
@@ -652,9 +647,8 @@ export const JoinHospyraModal: React.FC<JoinHospyraModalProps> = ({
             return (
               <div
                 key={step}
-                className={`flex-1 h-1.5 rounded-full transition-colors ${
-                  isActive ? 'bg-[#1E50C1]' : isComplete ? 'bg-[#1E50C1]/60' : 'bg-gray-200'
-                }`}
+                className={`flex-1 h-1.5 rounded-full transition-colors ${isActive ? 'bg-[#1E50C1]' : isComplete ? 'bg-[#1E50C1]/60' : 'bg-gray-200'
+                  }`}
                 title={`Step ${step}`}
               />
             );
@@ -693,14 +687,14 @@ export const JoinHospyraModal: React.FC<JoinHospyraModalProps> = ({
                   <p className="text-sm text-red-600 font-effra">{submitError}</p>
                 )}
 
-                <div className="flex gap-3 pt-4">
+                <div className={`grid ${!isFirstStep ? "grid-cols-2" : "grid-cols-1"} gap-3 pt-4`}>
                   {!isFirstStep && (
                     <button
                       type="button"
                       onClick={goBack}
                       className="flex items-center justify-center gap-1 py-3 px-4 rounded-lg font-medium font-effra border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors"
                     >
-                      <ChevronLeft className="w-4 h-4" />
+                      <ArrowLeft className="w-4 h-4" />
                       Back
                     </button>
                   )}
@@ -711,18 +705,17 @@ export const JoinHospyraModal: React.FC<JoinHospyraModalProps> = ({
                       className="flex-1 flex items-center justify-center gap-1 py-3 px-4 rounded-lg font-medium font-effra bg-[#1E50C1] text-white hover:bg-[#1a45a8] transition-colors"
                     >
                       Next
-                      <ChevronRight className="w-4 h-4" />
+                      <ArrowRight className="w-4 h-4" />
                     </button>
                   ) : (
                     <button
                       type="button"
                       onClick={() => handleSubmit()}
                       disabled={isSubmitting}
-                      className={`flex-1 py-3 px-4 rounded-lg font-medium font-effra transition-colors ${
-                        isSubmitting
-                          ? 'bg-gray-400 cursor-not-allowed text-white'
-                          : 'bg-[#1E50C1] text-white hover:bg-[#1a45a8]'
-                      }`}
+                      className={`flex-1 py-3 px-4 rounded-lg font-medium font-effra transition-colors ${isSubmitting
+                        ? 'bg-gray-400 cursor-not-allowed text-white'
+                        : 'bg-[#1E50C1] text-white hover:bg-[#1a45a8]'
+                        }`}
                     >
                       {isSubmitting ? 'Submitting...' : 'Submit Application'}
                     </button>
@@ -756,7 +749,7 @@ export const JoinHospyraModal: React.FC<JoinHospyraModalProps> = ({
             No form fields available. Please try again later.
           </p>
         )}
-      </DialogContent>
-    </Dialog>
+      </ModalPanel>
+    </Modal>
   );
 };

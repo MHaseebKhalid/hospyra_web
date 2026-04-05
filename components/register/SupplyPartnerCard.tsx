@@ -21,23 +21,25 @@ export function SupplyPartnerCard({
     <button
       type="button"
       onClick={onClick}
-      className={`w-full text-left rounded-xl border-2 p-4 transition-all hover:border-[#1E50C1] hover:shadow-md ${
-        isSelected ? 'border-[#FF6B35] bg-orange-50/50' : 'border-gray-200 bg-white'
+      className={`w-full text-left rounded-xl border p-4 transition-all duration-200 bg-white shadow-sm hover:border-[#1E50C1] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1E50C1]/30 focus-visible:ring-offset-2 ${
+        isSelected
+          ? 'border-[#1E50C1] bg-[#F8FAFF] ring-1 ring-[#1E50C1]/20'
+          : 'border-[#1E50C1]/35 hover:bg-[#FAFBFF]'
       }`}
     >
       <div className="flex gap-4 items-center">
-        <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-lg bg-gray-100">
+        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-white ring-1 ring-gray-200/80">
           <Image
             src={imageSrc}
             alt=""
-            fill
-            className="object-cover"
-            sizes="56px"
+            width={44}
+            height={44}
+            className="object-contain"
             unoptimized={imageSrc.startsWith('http')}
           />
         </div>
         <div className="min-w-0 flex-1">
-          <h3 className="font-semibold text-[#27272A] font-effra truncate">{supplyPartner.name}</h3>
+          <h3 className="font-semibold text-[#27272A] font-effra text-base truncate">{supplyPartner.name}</h3>
           {supplyPartner.description ? (
             <p className="text-sm text-gray-600 font-effra line-clamp-2 mt-0.5">
               {supplyPartner.description}

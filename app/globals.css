@@ -123,6 +123,7 @@
     @apply border-border outline-ring/50;
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground font-sans;
     @apply bg-background text-foreground font-sans;
@@ -133,15 +134,24 @@
   .font-antonio {
     font-family: var(--font-antonio), sans-serif;
   }
+
   .font-effra {
     font-family: var(--font-effra);
   }
 }
 
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1E50C1;
+  border-radius: 10px;
+}
 
 .hide-scrollbar {
-  -ms-overflow-style: none; 
-  scrollbar-width: none; 
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .hide-scrollbar::-webkit-scrollbar {
@@ -152,9 +162,11 @@
   .order-1-900 {
     order: 1;
   }
+
   .order-2-900 {
     order: 2;
   }
+
   .grid-cols-2-900 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }

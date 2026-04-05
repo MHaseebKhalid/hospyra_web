@@ -8,6 +8,7 @@ import { usePartnerFormSubmission } from '@/hooks/usePartnerFormSubmission';
 import type { SupplyPartner } from '@/types/supplyPartner';
 import type { FormField } from '@/types/formHandler';
 import type { FormDataRecord, FieldValue } from '@/types/common';
+import { FormFieldSelect } from '@/components/forms/FormFieldSelect';
 
 interface PartnerRegistrationFormProps {
   partner: SupplyPartner;
@@ -196,7 +197,7 @@ export function PartnerRegistrationForm({
     const fieldType = field.type || 'text';
 
     const inputClass =
-      'w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm font-effra shadow-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1E50C1]/30 focus:border-[#1E50C1]';
+      'w-full rounded-lg border border-gray-300 px-3 py-3 text-sm font-effra shadow-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1E50C1]/30 focus:border-[#1E50C1]';
 
     switch (fieldType) {
       case 'text':
@@ -240,29 +241,15 @@ export function PartnerRegistrationForm({
       case 'select':
       case 'dropdown':
         return (
-          <div key={field.id} className="space-y-1.5">
-            <label className="block text-sm font-medium text-[#27272A] font-effra">
-              {field.label} {field.required && <span className="text-red-500">*</span>}
-            </label>
-            <select
-              value={fieldValue}
-              onChange={(e) => handleInputChange(fieldId, e.target.value)}
-              required={field.required}
-              className={inputClass}
-            >
-              <option value="">Select {field.label}</option>
-              {field.options?.map((option, index) => {
-                const optionValue = typeof option === 'string' ? option : String(option.value ?? '');
-                const optionLabel =
-                  typeof option === 'string' ? option : String(option.label ?? optionValue);
-                return (
-                  <option key={index} value={optionValue}>
-                    {optionLabel}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
+          <FormFieldSelect
+            key={field.id}
+            fieldId={fieldId}
+            label={field.label || ''}
+            required={field.required}
+            value={fieldValue}
+            options={field.options}
+            onValueChange={(v) => handleInputChange(fieldId, v)}
+          />
         );
 
       case 'checkbox':
@@ -330,45 +317,48 @@ export function PartnerRegistrationForm({
 
   return (
     <div className="mx-auto w-full max-w-lg">
-      <div className="mb-6 flex items-center justify-between gap-3">
-        {onBack ? (
-          <button
-            type="button"
-            onClick={onBack}
-            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-[#27272A] hover:bg-gray-100"
-            aria-label="Back to partners"
-          >
-            <ArrowLeft className="h-5 w-5" />
-          </button>
-        ) : (
-          <span className="w-10" />
-        )}
-        <h2 className="text-center text-lg font-semibold text-[#27272A] font-effra">
-          Register with {partner.name}
-        </h2>
-        <span className="w-10" />
+      <div className="mb-4 flex flex-col gap-4 border-b border-gray-100 pb-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex items-center gap-3 min-w-0 flex-1">
+          {onBack ? (
+            <button
+              type="button"
+              onClick={onBack}
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-gray-200 text-[#27272A] hover:bg-gray-50 hover:border-[#1E50C1]/30 transition-colors"
+              aria-label="Back to partners"
+            >
+              <ArrowLeft className="h-5 w-5" />
+            </button>
+          ) : null}
+          <div className="min-w-0">
+            <p className="text-xs font-semibold uppercase tracking-wider text-[#1E50C1] font-effra">
+              Partner form
+            </p>
+            <h2 className="text-xl font-bold text-[#27272A] font-effra truncate">
+              Register with {partner.name}
+            </h2>
+          </div>
+        </div>
       </div>
 
       {localError && (
-        <div className="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800 font-effra">
+        <div className="mb-6 rounded-xl border border-red-200 bg-red-50/90 px-4 py-3 text-sm text-red-800 font-effra">
           {localError}
         </div>
       )}
 
       {parsedFields.length > 0 ? (
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-5">
           {parsedFields.map((field) => renderField(field))}
-          <div className="pt-2">
+          <div className="pt-4">
             <button
               type="submit"
               disabled={isSubmitting}
-              className={`w-full rounded-lg py-3 text-sm font-medium font-effra text-white transition-colors ${
-                isSubmitting
+              className={`w-full rounded-lg py-3.5 cursor-pointer font-semibold font-effra text-white shadow-sm transition-colors ${isSubmitting
                   ? 'cursor-not-allowed bg-gray-400'
-                  : 'bg-[#1E50C1] hover:bg-[#1a47a8]'
-              }`}
+                  : 'bg-[#1E50C1] hover:bg-[#1a45a8] active:scale-[0.99]'
+                }`}
             >
-              {isSubmitting ? 'Submitting…' : 'Submit registration'}
+              {isSubmitting ? 'Submitting…' : 'Submit Registration'}
             </button>
           </div>
         </form>

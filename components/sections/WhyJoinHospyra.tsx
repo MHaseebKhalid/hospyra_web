@@ -55,7 +55,7 @@ const WhyJoinHospyra = () => {
         className="object-cover"
         priority
       />
-      <div className="absolute inset-0 bg-black/70 z-10" />
+      <div className="absolute inset-0 bg-linear-to-b from-black/40 to-black/80 z-10" />
       <div className="relative z-20 h-full py-10 lg:py-16">
 
         <div className="text-center px-[4%]">

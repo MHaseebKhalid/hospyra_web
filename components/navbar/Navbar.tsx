@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { ChevronDown, Menu, X } from 'lucide-react'
 import { useJoinHospyraModal } from '@/contexts/JoinHospyraModalContext'
 import {
@@ -12,6 +12,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { Modal, ModalPanel } from '@/components/ui/modal'
 import GlobalButton from '../buttons/GlobalButton'
 
 const services = [
@@ -36,13 +37,25 @@ const navLinks = [
 
 const Navbar = () => {
   const pathname = usePathname()
+  const router = useRouter()
   const { openModal } = useJoinHospyraModal()
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const [isServicesOpen, setIsServicesOpen] = useState(false)
+  const [isNavChoiceOpen, setIsNavChoiceOpen] = useState(false)
 
-  const handleJoinClick = (_e: React.FormEvent) => {
-    openModal()
+  const openNavChoiceModal = () => {
+    setIsNavChoiceOpen(true)
     setIsSidebarOpen(false)
+  }
+
+  const handleRegisterFromModal = () => {
+    setIsNavChoiceOpen(false)
+    router.push('/register')
+  }
+
+  const handleJoinHospyraFromModal = () => {
+    setIsNavChoiceOpen(false)
+    window.setTimeout(() => openModal(), 0)
   }
 
   const isActive = (href: string) => href === '/' ? pathname === '/' : pathname.startsWith(href)
@@ -135,14 +148,17 @@ const Navbar = () => {
             ))}
           </div>
 
-          <div className="max-[1200px]:hidden flex items-center gap-3">
-            <Link
-              href="/register"
-              className="text-sm font-medium font-effra text-[#27272A] hover:text-[#FF6B35] transition-colors"
-            >
-              Register
-            </Link>
-            <GlobalButton title='Join Hosperra' font='500' className='px-6 font-effra' borderRadius='8px' height='45px' bgColor='#1E50C1' color='white' onClick={handleJoinClick} />
+          <div className="max-[1200px]:hidden">
+            <GlobalButton
+              title="Join Hosperra"
+              font="500"
+              className="px-6 font-effra"
+              borderRadius="8px"
+              height="45px"
+              bgColor="#1E50C1"
+              color="white"
+              onClick={openNavChoiceModal}
+            />
           </div>
 
           <button
@@ -223,18 +239,49 @@ const Navbar = () => {
             ))}
           </nav>
 
-          <div className="p-6 border-t space-y-3">
-            <Link
-              href="/register"
-              onClick={closeSidebar}
-              className="block w-full text-center rounded-lg border border-gray-200 py-3 text-sm font-medium font-effra text-[#27272A] hover:bg-gray-50"
-            >
-              Register
-            </Link>
-            <GlobalButton title='Join Hosperra' font='500' className='px-6 font-effra w-full' borderRadius='8px' height='45px' bgColor='#1E50C1' color='white' onClick={handleJoinClick} />
+          <div className="p-6 border-t">
+            <GlobalButton
+              title="Join Hosperra"
+              font="500"
+              className="px-6 font-effra w-full"
+              borderRadius="8px"
+              height="45px"
+              bgColor="#1E50C1"
+              color="white"
+              onClick={openNavChoiceModal}
+            />
           </div>
         </div>
       </aside>
+
+      <Modal open={isNavChoiceOpen} onOpenChange={setIsNavChoiceOpen}>
+        <ModalPanel
+          onClose={() => setIsNavChoiceOpen(false)}
+          className="max-w-md mx-auto"
+          headingText="Get started"
+          headingClassName="text-2xl"
+        >
+          <p className="text-lg text-[#52525b] font-effra mt-1">
+            Choose how you&apos;d like to continue.
+          </p>
+          <div className="flex flex-col gap-3 mt-4">
+            <button
+              type="button"
+              onClick={handleJoinHospyraFromModal}
+              className="w-full rounded-lg bg-[#1E50C1] px-6 py-3 cursor-pointer text-center font-medium font-effra text-white hover:bg-[#1a45a8] transition-colors"
+            >
+              Join Hosperra
+            </button>
+            <button
+              type="button"
+              onClick={handleRegisterFromModal}
+              className="w-full rounded-lg border border-gray-200 px-6 py-3 cursor-pointer text-center font-medium font-effra text-[#27272A] hover:bg-gray-50 transition-colors"
+            >
+              Register
+            </button>
+          </div>
+        </ModalPanel>
+      </Modal>
     </>
   )
 }
