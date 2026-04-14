@@ -24,7 +24,7 @@ const RequestsAndOrders = () => {
       </h3>
 
       <div className="grid gap-5 sm:grid-cols-2">
-        <div className="rounded-xl border border-[#EEDFDB] p-5">
+        <div className="rounded-xl border border-[#EEDFDB] p-4">
           <p className="text-lg font-semibold text-[#2C2D2F] font-effra">Requests Snapshot</p>
           <div className="mt-4 space-y-3">
             {requestsSnapshotData.map((item) => (
@@ -52,7 +52,7 @@ const RequestsAndOrders = () => {
           </div>
         </div>
 
-        <div className="rounded-xl border border-[#EEDFDB] p-5">
+        <div className="rounded-xl border border-[#EEDFDB] p-4">
           <p className="text-lg font-semibold text-[#2C2D2F] font-effra">Orders Snapshot</p>
           <div className="mt-4 space-y-3">
             {ordersSnapshotData.map((item) => (
@@ -82,7 +82,7 @@ const RequestsAndOrders = () => {
           </div>
         </div>
 
-        <div className="rounded-xl border border-[#EEDFDB] p-5">
+        <div className="rounded-xl border border-[#EEDFDB] p-4">
           <p className="text-lg font-semibold text-[#2C2D2F] font-effra">Inventory &amp; Supply Health</p>
           <div className="mt-4 space-y-3">
             {inventoryHealthData.map((item) => (
@@ -104,7 +104,7 @@ const RequestsAndOrders = () => {
             {inventoryNoticesData.map((item) => (
               <div
                 key={item.text}
-                className={`flex items-center gap-2 rounded-xl px-4 py-3 ${item.rowClassName} ${item.borderClassName}`}
+                className={`flex items-center gap-2 rounded-xl px-4 py-4 ${item.rowClassName} ${item.borderClassName}`}
               >
                 <Lightbulb size={16} className={`${item.iconClassName ?? 'text-[#DAB000]'} shrink-0`} />
                 <span className="text-sm text-[#2C2D2F] font-effra">{item.text}</span>
@@ -113,7 +113,7 @@ const RequestsAndOrders = () => {
           </div>
         </div>
 
-        <div className="rounded-xl border border-[#EEDFDB] p-5">
+        <div className="rounded-xl border border-[#EEDFDB] p-4">
           <p className="text-lg font-semibold text-[#2C2D2F] font-effra">Staffing Overview</p>
           <div className="mt-4 space-y-3">
             {staffingSnapshotData.map((item) => (

@@ -1,5 +1,9 @@
+type props = {
+  score: number,
+  label: string
+}
 
-const LineScore = ({ score, label }: any) => {
+const LineScore = ({ score, label }: props) => {
   return (
     <div className="bg-white p-3 rounded-[10px] mt-3">
       <div className="flex justify-between items-center">

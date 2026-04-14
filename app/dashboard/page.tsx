@@ -6,7 +6,10 @@ import { keyMetricsData } from "@/components/dashboard/StaticData";
 import WhatsHappeningNow from "@/components/dashboard/WhatsHappeningNow";
 import RequestsAndOrders from "@/components/dashboard/RequestsAndOrders";
 import HosperraIntelligence from "@/components/dashboard/HosperraIntelligence";
+import MenuProfitabilityCard from "@/components/dashboard/MenuProfitabilityCard";
+import MarketingTrafficCard from "@/components/dashboard/MarketingTrafficCard";
 import { FileText, MessageSquare, Package } from 'lucide-react'
+import FinancialOverview from "@/components/dashboard/FinancialOverview";
 
 
 const DashboardPage = () => {
@@ -57,6 +60,11 @@ const DashboardPage = () => {
       </div>
       <RequestsAndOrders />
       <HosperraIntelligence />
+      <div className="mt-5 grid gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+        <MenuProfitabilityCard />
+        <MarketingTrafficCard />
+      </div>
+      <FinancialOverview />
     </>
   );
 };

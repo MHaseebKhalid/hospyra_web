@@ -4,7 +4,7 @@ import { hosperraIntelligenceData } from '@/components/dashboard/StaticData';
 
 const HosperraIntelligence = () => {
   return (
-    <section className="mt-5 rounded-2xl border border-[#EEDFDB] p-4 md:p-6">
+    <section className="mt-5 rounded-2xl border border-[#EEDFDB] p-4">
       <h3 className="text-lg font-semibold text-[#2C2D2F] font-effra">
         Hosperra Intelligence
       </h3>
