@@ -23,7 +23,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
   const sidebar = (
     <aside
       className={cn(
-        'fixed inset-y-0 left-0 flex h-screen w-64 shrink-0 flex-col bg-black text-white',
+        'fixed inset-y-0 left-0 flex h-screen w-56 shrink-0 flex-col bg-black text-white',
         'max-lg:z-100 max-lg:shadow-xl',
         'max-lg:transition-transform max-lg:duration-200',
         mobileOpen ? 'max-lg:translate-x-0' : 'max-lg:-translate-x-full'
@@ -31,7 +31,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
     >
       <div className="flex h-16 shrink-0 items-center justify-between px-5">
         <Link
-          href="/"
+          href="/dashboard"
           className="flex items-center gap-2 outline-0"
           onClick={closeMobile}
         >
@@ -103,7 +103,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
 
       {sidebar}
 
-      <div className="flex min-w-0 flex-1 flex-col lg:ml-64 rounded-tl-4xl">
+      <div className="flex min-w-0 flex-1 flex-col lg:ml-56 rounded-tl-4xl">
 
         <div className="sticky top-0 z-30 pt-2 bg-black">
           <header className="flex h-16 rounded-tl-[40px] items-center justify-between gap-3 bg-white px-4 md:h-18 md:px-6">
