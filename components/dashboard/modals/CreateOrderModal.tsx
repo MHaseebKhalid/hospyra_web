@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import GlobalButton from '@/components/buttons/GlobalButton';
+import DashInput from '@/components/dashboard/DashInput';
 import { Modal, ModalPanel } from '@/components/ui/modal';
 import {
   Select,
@@ -11,16 +12,17 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
-type SubmitRequestModalProps = {
+type CreateOrderModalProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
 };
 
-const SubmitRequestModal = ({ open, onOpenChange }: SubmitRequestModalProps) => {
-  const [title, setTitle] = useState('');
+const CreateOrderModal = ({ open, onOpenChange }: CreateOrderModalProps) => {
   const [category, setCategory] = useState('');
-  const [priority, setPriority] = useState('');
-  const [description, setDescription] = useState('');
+  const [vendor, setVendor] = useState('');
+  const [amount, setAmount] = useState('');
+  const [deliveryDate, setDeliveryDate] = useState('');
+  const [notes, setNotes] = useState('');
 
   const handleClose = () => onOpenChange(false);
 
@@ -31,29 +33,17 @@ const SubmitRequestModal = ({ open, onOpenChange }: SubmitRequestModalProps) => 
   return (
     <Modal open={open} onOpenChange={onOpenChange}>
       <ModalPanel
-        headingText="Submit New Request"
+        headingText="Create New Order"
         headingClassName="text-2xl"
         className="max-w-xl rounded-3xl p-6 overflow-hidden"
         onClose={handleClose}
       >
         <div className="max-h-[calc(90vh-120px)] overflow-y-auto pr-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <p className="text-[#52525B] font-effra text-base">
-            Submit a request for any business need - from equipment repairs to menu changes.
+            Place a new order with your vendors for food, supplies, or equipment.
           </p>
 
-          <div className="mt-5">
-            <label className="mb-2 block text-[#111827] font-effra text-sm font-medium">
-              Request Title *
-            </label>
-            <input
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              placeholder="e.g., Replace broken oven"
-              className="w-full rounded-md border border-transparent bg-[#F3F4F6] px-4 py-2.5 text-sm text-[#111827] placeholder:text-[#71717A] font-effra outline-none focus:border-[#1E50C1]"
-            />
-          </div>
-
-          <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-2">
             <div>
               <label className="mb-2 block text-[#111827] font-effra text-sm font-medium">
                 Category *
@@ -64,53 +54,61 @@ const SubmitRequestModal = ({ open, onOpenChange }: SubmitRequestModalProps) => 
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="Food">Food</SelectItem>
-                  <SelectItem value="Staffing">Staffing</SelectItem>
-                  <SelectItem value="Marketing">Marketing</SelectItem>
-                  <SelectItem value="Construction">Construction</SelectItem>
+                  <SelectItem value="Beverage">Beverage</SelectItem>
                   <SelectItem value="Equipment">Equipment</SelectItem>
-                  <SelectItem value="Emergency">Emergency</SelectItem>
+                  <SelectItem value="Supplies">Supplies</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div>
               <label className="mb-2 block text-[#111827] font-effra text-sm font-medium">
-                Priority *
+                Vendor *
               </label>
-              <Select value={priority} onValueChange={setPriority}>
+              <Select value={vendor} onValueChange={setVendor}>
                 <SelectTrigger className="h-10! w-full rounded-md border border-transparent bg-[#F3F4F6] px-4 text-sm font-effra">
-                  <SelectValue placeholder="Select priority" />
+                  <SelectValue placeholder="Select vendor" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="high">high</SelectItem>
-                  <SelectItem value="medium">medium</SelectItem>
-                  <SelectItem value="low">low</SelectItem>
+                  <SelectItem value="Fresh Farms Co">Fresh Farms Co</SelectItem>
+                  <SelectItem value="Wine Distributors">Wine Distributors</SelectItem>
+                  <SelectItem value="Ocean's Best">Ocean&apos;s Best</SelectItem>
+                  <SelectItem value="Kitchen Supply Pro">Kitchen Supply Pro</SelectItem>
                 </SelectContent>
               </Select>
             </div>
+
+            <DashInput
+              label="Order Amount"
+              isRequired
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              placeholder="0.00"
+            />
+
+            <DashInput
+              label="Delivery Date"
+              isRequired
+              value={deliveryDate}
+              onChange={(e) => setDeliveryDate(e.target.value)}
+              placeholder="Select date"
+            />
           </div>
 
-          <div className="mt-4">
+          <div className="mt-5">
             <label className="mb-2 block text-[#111827] font-effra text-sm font-medium">
-              Description *
+              Order Notes (Optional)
             </label>
             <textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              placeholder="Provide detailed information about your request..."
-              rows={5}
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              placeholder="Special instructions or items to order..."
+              rows={3}
               className="w-full resize-none rounded-md border border-transparent bg-[#F3F4F6] px-4 py-3 text-sm text-[#111827] placeholder:text-[#71717A] font-effra outline-none focus:border-[#1E50C1]"
             />
           </div>
 
-          <div className="mt-4 rounded-xl border border-[#93C5FD] bg-[#EFF6FF] p-4">
-            <p className="text-lg font-semibold text-[#1F2937] font-effra">What happens next?</p>
-            <p className="mt-2 text-sm text-[#374151] font-effra">
-              Your request will be reviewed by the Hosperra team and assigned to the appropriate specialist. You&apos;ll receive updates via email and in your dashboard.
-            </p>
-          </div>
-
-          <div className="mt-6 flex flex-wrap justify-end gap-3">
+          <div className="mt-5 flex flex-wrap justify-end gap-3">
             <GlobalButton
               title="Cancel"
               borderRadius="10px"
@@ -123,7 +121,7 @@ const SubmitRequestModal = ({ open, onOpenChange }: SubmitRequestModalProps) => 
               onClick={handleClose}
             />
             <GlobalButton
-              title="Submit Request"
+              title="Create Order"
               borderRadius="10px"
               height="44px"
               bgColor="#020617"
@@ -138,4 +136,4 @@ const SubmitRequestModal = ({ open, onOpenChange }: SubmitRequestModalProps) => 
   );
 };
 
-export default SubmitRequestModal;
+export default CreateOrderModal;

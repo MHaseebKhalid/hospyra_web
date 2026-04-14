@@ -12,7 +12,8 @@ import {
 } from 'lucide-react';
 import GlobalButton from '@/components/buttons/GlobalButton';
 import RequestsTable from '@/components/dashboard/RequestsTable';
-import SubmitRequestModal from '@/components/dashboard/SubmitRequestModal';
+import SubmitRequestModal from '@/components/dashboard/modals/SubmitRequestModal';
+import SummaryStatCard from '@/components/dashboard/SummaryStatCard';
 import { requestsTableRowsData } from '@/components/dashboard/TablesStaticData';
 
 type RequestStat = {
@@ -57,12 +58,12 @@ const RequestsPage = () => {
 
       <div className="mt-5 grid gap-4 grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4">
         {requestStats.map((card) => (
-          <div key={card.label} className="rounded-2xl border bg-linear-to-b from-[#F9F8F8] to-[#F8F2EF] border-[#EEDFDB] p-5">
-            <p className="text-sm text-[#52525B] font-effra">{card.label}</p>
-            <p className={`mt-4 mb-2 text-3xl font-semibold text-[#0F172A] font-effra ${card.valueClassName ?? ''}`}>
-              {card.value}
-            </p>
-          </div>
+          <SummaryStatCard
+            key={card.label}
+            label={card.label}
+            value={card.value}
+            valueClassName={card.valueClassName}
+          />
         ))}
       </div>
 
@@ -83,7 +84,7 @@ const RequestsPage = () => {
         </div>
       </div>
 
-      <div className="mt-5 rounded-2xl border border-[#EEDFDB]">
+      <div className="mt-5 rounded-2xl overflow-clip border border-[#EEDFDB]">
         <h3 className="text-xl font-semibold text-[#18181B] px-5 pt-5 font-effra">All Requests</h3>
         <RequestsTable rows={requestsTableRowsData} />
       </div>

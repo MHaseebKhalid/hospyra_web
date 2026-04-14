@@ -71,7 +71,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
               )}
             >
               <Icon className="h-5 w-5 shrink-0 opacity-95" />
-              <span className="leading-snug">{label}</span>
+              <span className="leading-snug truncate ">{label}</span>
             </Link>
           );
         })}

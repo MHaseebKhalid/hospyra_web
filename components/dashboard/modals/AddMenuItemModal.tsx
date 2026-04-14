@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import GlobalButton from '@/components/buttons/GlobalButton';
+import DashInput from '@/components/dashboard/DashInput';
 import { Modal, ModalPanel } from '@/components/ui/modal';
 import {
   Select,
@@ -16,7 +17,7 @@ type AddMenuItemModalProps = {
   onOpenChange: (open: boolean) => void;
 };
 
-export default function AddMenuItemModal({ open, onOpenChange }: AddMenuItemModalProps) {
+const AddMenuItemModal = ({ open, onOpenChange }: AddMenuItemModalProps) => {
   const [itemName, setItemName] = useState('');
   const [category, setCategory] = useState('');
   const [cost, setCost] = useState('');
@@ -54,17 +55,14 @@ export default function AddMenuItemModal({ open, onOpenChange }: AddMenuItemModa
           </p>
 
           <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2">
-            <div>
-              <label className="mb-2 block text-[#111827] font-effra text-sm font-medium">
-                Item Name *
-              </label>
-              <input
-                value={itemName}
-                onChange={(e) => setItemName(e.target.value)}
-                placeholder="e.g., Grilled Salmon"
-                className="w-full rounded-md border border-transparent bg-[#F3F4F6] px-5 py-2.5 text-sm text-[#111827] placeholder:text-[#71717A] font-effra outline-none focus:border-[#1E50C1]"
-              />
-            </div>
+            <DashInput
+              label="Item Name"
+              isRequired
+              value={itemName}
+              onChange={(e) => setItemName(e.target.value)}
+              placeholder="e.g., Grilled Salmon"
+              inputClassName="px-5"
+            />
 
             <div>
               <label className="mb-2 block text-[#111827] font-effra text-sm font-medium">
@@ -83,29 +81,23 @@ export default function AddMenuItemModal({ open, onOpenChange }: AddMenuItemModa
               </Select>
             </div>
 
-            <div>
-              <label className="block text-[#111827] font-effra text-sm font-medium mb-2">
-                Cost per Item *
-              </label>
-              <input
-                value={cost}
-                onChange={(e) => setCost(e.target.value)}
-                placeholder="0.00"
-                className="w-full rounded-md border border-transparent bg-[#F3F4F6] px-5 py-2.5 text-sm text-[#111827] placeholder:text-[#71717A] font-effra outline-none focus:border-[#1E50C1]"
-              />
-            </div>
+            <DashInput
+              label="Cost per Item"
+              isRequired
+              value={cost}
+              onChange={(e) => setCost(e.target.value)}
+              placeholder="0.00"
+              inputClassName="px-5"
+            />
 
-            <div>
-              <label className="block text-[#111827] font-effra text-sm font-medium mb-2">
-                Menu Price *
-              </label>
-              <input
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-                placeholder="0.00"
-                className="w-full rounded-md border border-transparent bg-[#F3F4F6] px-5 py-2.5 text-sm  text-[#111827] placeholder:text-[#71717A] font-effra outline-none focus:border-[#1E50C1]"
-              />
-            </div>
+            <DashInput
+              label="Menu Price"
+              isRequired
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              placeholder="0.00"
+              inputClassName="px-5"
+            />
           </div>
 
           <div className="mt-6">
@@ -147,4 +139,6 @@ export default function AddMenuItemModal({ open, onOpenChange }: AddMenuItemModa
       </ModalPanel>
     </Modal>
   );
-}
+};
+
+export default AddMenuItemModal;
