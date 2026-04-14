@@ -257,3 +257,218 @@ export const hosperraIntelligenceData: IntelligenceInsightItem[] = [
     iconClassName: 'text-[#22C55E]',
   },
 ];
+
+/** Intelligence dashboard page (`/dashboard/intelligence`) */
+
+export type IntelligenceSummaryStat = {
+  label: string;
+  value: string;
+  valueClassName?: string;
+};
+
+export type IntelligenceCriticalAlertItem = {
+  id: string;
+  variant: 'danger' | 'warning';
+  category: string;
+  title: string;
+  description: string;
+  impact: string;
+  actionLabel: string;
+};
+
+export type IntelligenceAiRecommendationItem = {
+  id: string;
+  tag: string;
+  priority: 'High' | 'Medium';
+  title: string;
+  description: string;
+  benefit: string;
+};
+
+export type GrowthOpportunityItem = {
+  id: string;
+  title: string;
+  effort: string;
+  description: string;
+  gain: string;
+};
+
+export const intelligencePageStats: IntelligenceSummaryStat[] = [
+  { label: 'Active Alerts', value: '3', valueClassName: 'text-[#E7000B]' },
+  { label: 'Recommendations', value: '4' },
+  { label: 'Growth Opportunities', value: '4' },
+  { label: 'Potential Savings', value: '$2.9K/mo' },
+];
+
+export const intelligenceCriticalAlerts: IntelligenceCriticalAlertItem[] = [
+  {
+    id: '1',
+    variant: 'danger',
+    category: 'Cost Control',
+    title: 'Food cost trending up',
+    description: 'Food costs increased 4% this week. Chicken prices up 12%.',
+    impact: 'Impact: Could cost $800/month',
+    actionLabel: 'Review supplier contracts',
+  },
+  {
+    id: '2',
+    variant: 'warning',
+    category: 'Operations',
+    title: 'Wait times increasing',
+    description: 'Average wait time is 8 minutes longer during dinner rush.',
+    impact: 'Impact: Affecting customer satisfaction',
+    actionLabel: 'Add expediter during peak hours',
+  },
+  {
+    id: '3',
+    variant: 'danger',
+    category: 'Staffing',
+    title: 'Weekend understaffing',
+    description: 'Operating at 85% staff capacity on Fridays and Saturdays.',
+    impact: 'Impact: Lost revenue: ~$1,200/week',
+    actionLabel: 'Hire 2 additional staff',
+  },
+];
+
+export const intelligenceAiRecommendations: IntelligenceAiRecommendationItem[] = [
+  {
+    id: '1',
+    tag: 'Pricing',
+    priority: 'High',
+    title: 'Adjust Wagyu Burger price',
+    description: 'Current margin is 37%. Increase price by $2 to reach 45% margin.',
+    benefit: '+$280/month',
+  },
+  {
+    id: '2',
+    tag: 'Staffing',
+    priority: 'High',
+    title: 'Reduce lunch shift staff',
+    description: 'Overstaffed by 2 people during lunch. Optimize scheduling.',
+    benefit: 'Save $2,400/month',
+  },
+  {
+    id: '3',
+    tag: 'Suppliers',
+    priority: 'Medium',
+    title: 'Switch chicken supplier',
+    description: 'Poultry Plus offers same quality at 8% lower cost.',
+    benefit: 'Save $200/month',
+  },
+  {
+    id: '4',
+    tag: 'Menu',
+    priority: 'Medium',
+    title: 'Remove underperforming items',
+    description: 'Lobster Bisque has low sales and high cost. Consider seasonal rotation.',
+    benefit: 'Reduce waste by 5%',
+  },
+];
+
+export const intelligenceGrowthOpportunities: GrowthOpportunityItem[] = [
+  {
+    id: '1',
+    title: 'Expand Happy Hour',
+    effort: 'Low Effort',
+    description: 'Current happy hour drives 18% of weekday revenue. Extend by 1 hour.',
+    gain: '+$3,500/month',
+  },
+  {
+    id: '2',
+    title: 'Launch Catering Service',
+    effort: 'Medium Effort',
+    description: 'High demand in area. 3 competitors with 4+ star ratings.',
+    gain: '+$8,000/month',
+  },
+  {
+    id: '3',
+    title: 'Add Weekend Brunch',
+    effort: 'Medium Effort',
+    description: 'Utilize kitchen during off-hours. Local demand shows 200+ searches/month.',
+    gain: '+$5,200/month',
+  },
+  {
+    id: '4',
+    title: 'Increase Social Media',
+    effort: 'Low Effort',
+    description: 'Posting frequency below competitors. Boost to 4x/week.',
+    gain: '+15% engagement',
+  },
+];
+
+/** Settings page (`/dashboard/settings`) */
+
+export type SettingsNotificationItem = {
+  id: string;
+  title: string;
+  description: string;
+  defaultChecked: boolean;
+};
+
+export type SettingsOperatingHourRow = {
+  id: string;
+  label: string;
+  value: string;
+};
+
+export const settingsBusinessDefaults = {
+  businessName: 'Restaurant Name',
+  businessType: 'Fine Dining Restaurant',
+  address: '123 Main Street, City, State 12345',
+  phone: '+1 (555) 123-4567',
+  email: 'contact@restaurant.com',
+} as const;
+
+export const settingsContactDefaults = {
+  ownerName: 'John Doe',
+  ownerEmail: 'john@restaurant.com',
+  managerName: 'Jane Smith',
+  managerPhone: '+1 (555) 987-6543',
+} as const;
+
+export const settingsNotificationItems: SettingsNotificationItem[] = [
+  {
+    id: '1',
+    title: 'Critical Alerts',
+    description: 'Get notified about urgent issues',
+    defaultChecked: true,
+  },
+  {
+    id: '2',
+    title: 'Daily Summary',
+    description: 'Receive daily performance reports',
+    defaultChecked: true,
+  },
+  {
+    id: '3',
+    title: 'Order Updates',
+    description: 'Track delivery status',
+    defaultChecked: true,
+  },
+  {
+    id: '4',
+    title: 'Staff Changes',
+    description: 'Updates about team members',
+    defaultChecked: false,
+  },
+  {
+    id: '5',
+    title: 'Marketing Insights',
+    description: 'Weekly marketing performance',
+    defaultChecked: true,
+  },
+];
+
+export const settingsOperatingHours: SettingsOperatingHourRow[] = [
+  { id: '1', label: 'Monday – Thursday', value: '11:00 AM - 10:00 PM' },
+  { id: '2', label: 'Friday', value: '11:00 AM - 11:00 PM' },
+  { id: '3', label: 'Saturday', value: '10:00 AM - 11:00 PM' },
+  { id: '4', label: 'Sunday', value: '10:00 AM - 9:00 PM' },
+];
+
+export const settingsBilling = {
+  planName: 'Professional Plan',
+  planPrice: '$199/month',
+  cardMasked: '**** **** **** 4242',
+  cardExpires: 'Expires 12/2026',
+} as const;
