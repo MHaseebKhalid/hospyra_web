@@ -1,10 +1,9 @@
-import { DashboardSectionPlaceholder } from '@/components/dashboard/DashboardSectionPlaceholder';
-
-export default function HosperraIntelligencePage() {
+const HosperraIntelligencePage = () => {
   return (
-    <DashboardSectionPlaceholder
-      title="Hosperra Intelligence"
-      description="Insights, recommendations, and AI-assisted analysis for your business."
-    />
+    <div className="mx-auto max-w-6xl space-y-4">
+    
+    </div>
   );
-}
+};
+
+export default HosperraIntelligencePage;

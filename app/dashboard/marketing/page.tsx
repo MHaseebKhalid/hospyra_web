@@ -1,10 +1,9 @@
-import { DashboardSectionPlaceholder } from '@/components/dashboard/DashboardSectionPlaceholder';
-
-export default function MarketingPage() {
+const MarketingPage = () => {
   return (
-    <DashboardSectionPlaceholder
-      title="Marketing"
-      description="Campaigns, promos, and customer outreach."
-    />
+    <div className="mx-auto max-w-6xl space-y-4">
+    
+    </div>
   );
-}
+};
+
+export default MarketingPage;

@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { Paperclip, SendHorizonal } from 'lucide-react';
+import { ArrowLeft, Paperclip, SendHorizonal } from 'lucide-react';
 import GlobalButton from '@/components/buttons/GlobalButton';
 
 type ConversationItem = {
@@ -127,28 +127,61 @@ const conversationMessages: Record<string, ChatMessage[]> = {
 
 const MessagesPage = () => {
   const [activeConversationId, setActiveConversationId] = useState(conversations[0]?.id ?? '');
+  const [isMobileChatOpen, setIsMobileChatOpen] = useState(false);
+  const [messageText, setMessageText] = useState('');
+  const [messagesByConversation, setMessagesByConversation] = useState(conversationMessages);
 
   const activeConversation = useMemo(
     () => conversations.find((item) => item.id === activeConversationId) ?? conversations[0],
     [activeConversationId]
   );
 
-  const activeChatMessages = conversationMessages[activeConversation?.id ?? ''] ?? [];
+  const activeChatMessages = messagesByConversation[activeConversation?.id ?? ''] ?? [];
+
+  const handleSendMessage = () => {
+    const trimmed = messageText.trim();
+    if (!trimmed || !activeConversation?.id) return;
+
+    const currentTime = new Date().toLocaleTimeString([], {
+      hour: 'numeric',
+      minute: '2-digit',
+    });
+
+    const newMessage: ChatMessage = {
+      id: String(Date.now()),
+      sender: 'You',
+      content: trimmed,
+      time: currentTime,
+      isOutgoing: true,
+    };
+
+    setMessagesByConversation((prev) => ({
+      ...prev,
+      [activeConversation.id]: [...(prev[activeConversation.id] ?? []), newMessage],
+    }));
+    setMessageText('');
+  };
 
   return (
-    <section className="rounded-2xl border border-[#EEDFDB] overflow-hidden">
-      <div className="grid lg:grid-cols-[320px_minmax(0,1fr)]">
-        <aside className="border-r border-[#E5E7EB]">
+    <section className="rounded-2xl border border-[#EEDFDB] overflow-hidden md:h-[calc(100vh-140px)] h-[calc(100vh-120px)]">
+      <div className="grid h-full md:grid-cols-[300px_minmax(0,1fr)]">
+        <aside
+          className={`border-r border-[#E5E7EB] h-full min-h-0 flex-col ${isMobileChatOpen ? 'hidden md:flex' : 'flex'
+            }`}
+        >
           <div className="border-b border-[#E5E7EB] px-4 py-5">
             <h3 className="text-xl leading-none font-semibold text-[#18181B] font-effra">Conversations</h3>
           </div>
 
-          <div>
+          <div className="min-h-0 flex-1 overflow-y-auto">
             {conversations.map((item) => (
               <button
                 key={item.id}
                 type="button"
-                onClick={() => setActiveConversationId(item.id)}
+                onClick={() => {
+                  setActiveConversationId(item.id);
+                  setIsMobileChatOpen(true);
+                }}
                 className={`w-full border-b border-[#E5E7EB] px-4 py-4 text-left ${activeConversation?.id === item.id ? 'bg-[#F8F5F5]' : 'bg-white'
                   }`}
               >
@@ -167,12 +200,19 @@ const MessagesPage = () => {
           </div>
         </aside>
 
-        <div className="min-w-0">
-          <div className="border-b border-[#E5E7EB] px-4 py-5">
+        <div className={`min-w-0 h-full min-h-0 flex-col ${isMobileChatOpen ? 'flex' : 'hidden md:flex'}`}>
+          <div className="border-b flex gap-4 items-center border-[#E5E7EB] px-4 py-5">
+            <button
+              type="button"
+              onClick={() => setIsMobileChatOpen(false)}
+              className="text-[#27272A] md:hidden"
+            >
+              <ArrowLeft size={22} />
+            </button>
             <h3 className="text-xl leading-none font-semibold text-[#18181B] font-effra">{activeConversation?.title}</h3>
           </div>
 
-          <div className="min-h-105 px-4 py-4 space-y-5">
+          <div className="min-h-0 flex-1 overflow-y-auto px-4 py-4 space-y-5">
             {activeChatMessages.map((message) => (
               <div key={message.id} className={message.isOutgoing ? 'flex flex-col items-end' : 'flex flex-col items-start'}>
                 <div
@@ -204,6 +244,14 @@ const MessagesPage = () => {
               </button>
               <div className="flex h-10 flex-1 items-center rounded-md bg-[#F3F4F6] px-4">
                 <input
+                  value={messageText}
+                  onChange={(e) => setMessageText(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      handleSendMessage();
+                    }
+                  }}
                   placeholder="Type a message..."
                   className="h-full w-full bg-transparent text-sm text-[#111827] placeholder:text-[#71717A] font-effra outline-none"
                 />
@@ -216,6 +264,7 @@ const MessagesPage = () => {
                 bgColor="#020617"
                 color="#FFFFFF"
                 className="font-effra flex-row-reverse px-5"
+                onClick={handleSendMessage}
               />
             </div>
           </div>

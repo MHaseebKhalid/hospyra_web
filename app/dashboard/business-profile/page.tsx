@@ -1,10 +1,9 @@
-import { DashboardSectionPlaceholder } from '@/components/dashboard/DashboardSectionPlaceholder';
-
-export default function BusinessProfilePage() {
+const BusinessProfilePage = () => {
   return (
-    <DashboardSectionPlaceholder
-      title="Business Profile"
-      description="Locations, hours, branding, and public listing details."
-    />
+    <div className="mx-auto max-w-6xl space-y-4">
+  
+    </div>
   );
-}
+};
+
+export default BusinessProfilePage;
