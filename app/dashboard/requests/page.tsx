@@ -30,12 +30,12 @@ const requestStats: RequestStat[] = [
 ];
 
 const requestCategories = [
-  { label: 'Food', activeCount: 1, icon: UtensilsCrossed },
-  { label: 'Staffing', activeCount: 1, icon: Users },
-  { label: 'Marketing', activeCount: 2, icon: Megaphone },
-  { label: 'Construction', activeCount: 1, icon: Hammer },
-  { label: 'Equipment', activeCount: 1, icon: Wrench },
-  { label: 'Emergency', activeCount: 1, icon: AlertTriangle },
+  { label: 'Food', activeCount: 1, icon: '🍽️' },
+  { label: 'Staffing', activeCount: 1, icon: '👥' },
+  { label: 'Marketing', activeCount: 2, icon: '📢' },
+  { label: 'Construction', activeCount: 1, icon: '🔨' },
+  { label: 'Equipment', activeCount: 1, icon: '⚙️' },
+  { label: 'Emergency', activeCount: 1, icon: '🚨' },
 ] as const;
 
 const RequestsPage = () => {
@@ -72,8 +72,8 @@ const RequestsPage = () => {
         <div className="mt-4 grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
           {requestCategories.map((item) => (
             <div key={item.label} className="rounded-xl bg-[#F9FAFB] px-5 py-8 text-center">
-              <div className="flex justify-center">
-                <item.icon size={28} className="text-[#18181B]" />
+              <div className="flex text-3xl justify-center">
+               {item.icon}
               </div>
               <p className="mt-3 text-md font-semibold text-[#18181B] font-effra">{item.label}</p>
               <span className="mt-3 inline-flex rounded-full bg-[#E5E7EB] px-3 py-1 text-sm text-[#111827] font-effra">
